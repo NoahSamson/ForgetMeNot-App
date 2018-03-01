@@ -1,0 +1,8 @@
+{
+  "name": "FMN",
+  "app_id": "65d5f702",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
