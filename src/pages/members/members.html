@@ -7,20 +7,54 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Member List</ion-title>
+    <ion-title>Close Members</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+    <button ion-button clear icon-left>
+        <ion-icon name="add-circle"></ion-icon>
+        Add Member 
+      </button>
+    
     <ion-list>
+      
         <ion-item>
           <ion-thumbnail item-start>
-              <img src="assets/imgs/p1.jpg"/>
+              <img src="assets/imgs/dad.jpg"/>
           </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
+          <h2>Dad</h2>
+          <p>James Christopher</p>
+          <button ion-button clear item-end>View</button>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail item-start>
+              <img src="assets/imgs/mom.jpg"/>
+          </ion-thumbnail>
+          <h2>Mom</h2>
+          <p>Anne James</p>
+          <button ion-button clear item-end (click)="viewProfile()">View</button>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail item-start>
+              <img src="assets/imgs/ct.jpg"/>
+          </ion-thumbnail>
+          <h2>Caretaker</h2>
+          <p>Teena Roy</p>
+          <button ion-button clear item-end>View</button>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail item-start>
+              <img src="assets/imgs/sister.jpg"/>
+          </ion-thumbnail>
+          <h2>Sister</h2>
+          <p>Leeza Kyle</p>
           <button ion-button clear item-end>View</button>
         </ion-item>
       </ion-list>

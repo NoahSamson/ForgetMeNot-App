@@ -10,8 +10,12 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { MembersPage } from '../pages/members/members';
 import { RegisterPage } from '../pages/register/register';
-import {LoginPage} from '../pages/login/login';
+import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
+import { EachMemberPage } from '../pages/each-member/each-member';
+import { GalleryPage } from '../pages/gallery/gallery';
+import { LifeStoryPage } from '../pages/life-story/life-story';
+import { UserPage } from '../pages/user/user';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,6 +30,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MembersPage,
     MapPage,
     RegisterPage,
+    EachMemberPage,
+    GalleryPage,
+    LifeStoryPage,
+    UserPage,
     TabsPage
   ],
   imports: [
@@ -42,6 +50,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LoginPage,
     MembersPage,
     RegisterPage,
+    EachMemberPage,
+    GalleryPage,
+    LifeStoryPage,
+    UserPage,
     TabsPage
   ],
   providers: [

@@ -31,6 +31,7 @@ export class RegisterPage {
      
   }
   radioChecked(){
+    document.getElementById("profilePic").style.display="block";
     document.getElementById("caretakerInfo").style.display="block";
   //document.getElementById("picUpload").style.display="block";
   }

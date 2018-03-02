@@ -6,6 +6,9 @@ import { LoginPage } from '../login/login';
 
 import { MapPage } from '../map/map';
 import { MembersPage } from '../members/members'; 
+import { UserPage } from '../user/user';
+import { LifeStoryPage } from '../life-story/life-story';
+import { GalleryPage } from '../gallery/gallery';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -13,10 +16,14 @@ import { MembersPage } from '../members/members';
 export class TabsPage {
 
   //tab1Root = HomePage;
-  tab1Root = LoginPage;
-  tab2Root = AboutPage;
-  tab3Root = MembersPage;
-  tab4Root = MapPage;
+  tab0Root = LoginPage;
+  tab1Root = UserPage;
+  tab2Root = LifeStoryPage;
+  tab3Root = GalleryPage;
+  tab4Root = MembersPage;
+  tab5Root = MapPage;
+
+  
   constructor() {
 
   }
