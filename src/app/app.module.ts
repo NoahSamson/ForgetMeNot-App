@@ -20,6 +20,21 @@ import { UserPage } from '../pages/user/user';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+//Firebase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+
+//export firebase configuration
+export const firebaseConfig = {
+  apiKey: "AIzaSyBhOqawvKnvQf5umbwu76ueY5fwSY5dj5k",
+  authDomain: "angularlogin-15267.firebaseapp.com",
+  databaseURL: "https://angularlogin-15267.firebaseio.com",
+  projectId: "angularlogin-15267",
+  storageBucket: "angularlogin-15267.appspot.com",
+  messagingSenderId: "878296582076"
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -38,7 +53,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -59,7 +76,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthServiceProvider
   ]
 })
 export class AppModule {}

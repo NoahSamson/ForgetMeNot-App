@@ -17,15 +17,15 @@
     <br/><br/>
     <ion-item>
       <ion-label fixed>Username</ion-label>
-      <ion-input type="text" value=""></ion-input>
+      <ion-input type="text" [(ngModel)]="email"></ion-input>
     </ion-item>
   
     <ion-item>
       <ion-label fixed>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
     <ion-item>
-      <button id="btnLogin"ion-button>Login</button>
+      <button id="btnLogin"ion-button (click)= "login()">Login</button>
     </ion-item>
     <ion-item>
       <p align="center">Don't have an account?</p>

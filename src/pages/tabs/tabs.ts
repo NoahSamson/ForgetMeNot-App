@@ -16,8 +16,8 @@ import { GalleryPage } from '../gallery/gallery';
 export class TabsPage {
 
   //tab1Root = HomePage;
-  tab0Root = LoginPage;
-  tab1Root = UserPage;
+  tab1Root = LoginPage;
+  tab0Root = UserPage;
   tab2Root = LifeStoryPage;
   tab3Root = GalleryPage;
   tab4Root = MembersPage;
