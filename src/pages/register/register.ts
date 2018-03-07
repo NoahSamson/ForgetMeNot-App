@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 
+var validateRadio;
 /**
  * Generated class for the RegisterPage page.
  *
@@ -15,7 +17,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public  alertCtrl: AlertController ) {
   }
 
   ionViewDidLoad() {
@@ -23,17 +25,36 @@ export class RegisterPage {
   }
 
   test(){
+    if(validateRadio){
     document.getElementById("regForm").style.display="none";
-     document.getElementById("profilePic").style.display="block";
+     document.getElementById("otherDetails").style.display="block";
      document.getElementById("btnRegister").style.display="block";
+    }
+    else{
+        this.presentAlert();
+    }
      
-     document.getElementById("btnNext").style.display="none";
      
   }
-  radioChecked(){
-    document.getElementById("profilePic").style.display="block";
+  radioCheckedPatient(){
     document.getElementById("caretakerInfo").style.display="block";
-  //document.getElementById("picUpload").style.display="block";
+    document.getElementById("btnNext").style.bottom= "-40px";
+    validateRadio=true;
+
   }
 
+  radioCheckedCaretaker(){
+    document.getElementById("caretakerInfo").style.display="none";
+    validateRadio=true;
+
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Please select a role',
+      subTitle: '',
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
 }
