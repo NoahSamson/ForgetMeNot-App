@@ -27,8 +27,32 @@ export class MapPage {
     this.loadMap();
   }
 
-  loadMap(){
-    let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+   loadMap(){
+	  
+	  
+	  let locationOptions = {timeout: 20000, enableHighAccuracy: true};
+ 
+    navigator.geolocation.getCurrentPosition(
+ 
+        (position) => {
+ 
+            let options = {
+              center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+              zoom: 16,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+ 
+            this.map = new google.maps.Map(this.mapElement.nativeElement, options);
+        },
+ 
+        (error) => {
+            console.log(error);
+        }, locationOptions
+    );
+	  
+	   
+	  
+    /* this.latLng = new google.maps.LatLng( 6.874092, 79.860497.);
 
     let mapOptions = {
       center: latLng,
@@ -37,6 +61,7 @@ export class MapPage {
     }
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+	*/
   }
 
   addMarker(){
