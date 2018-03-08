@@ -59,37 +59,43 @@
     <ion-list id="regForm">
         <ion-item>
           <ion-label>First Name</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.fName"></ion-input>
         </ion-item>
       
         <ion-item>
           <ion-label>Last Name</ion-label>
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.lName"></ion-input>
         </ion-item>
 
         <ion-item>
             <ion-label>E-mail address</ion-label>
-            <ion-input type="email"></ion-input>
+            <ion-input type="email" [(ngModel)]="user.email"></ion-input>
           </ion-item>
 
           <ion-item>
+              <ion-label fixed>Password</ion-label>
+              <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+            </ion-item>
+
+          <ion-item>
             <ion-label>Address</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" [(ngModel)]="user.address"></ion-input>
           </ion-item>
           
 
           <ion-item>
               <ion-label>Phone Number</ion-label>
-              <ion-input type="number"></ion-input>
+              <ion-input type="number" [(ngModel)]="user.pNum"></ion-input>
             </ion-item>           
                
               <button ion-button icon-right id="btnNext" (click)="test()">
                   Next
               <ion-icon name="arrow-dropright"></ion-icon>
                 </button>
+
       
       </ion-list>
 
-      <button id="btnRegister"ion-button>Register</button>
+      <button id="btnRegister"ion-button (click)= "signup(user)">Register</button>
 
 </ion-content>

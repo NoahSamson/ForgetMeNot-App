@@ -29,12 +29,12 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 //export firebase configuration
 export const firebaseConfig = {
-  apiKey: "AIzaSyBhOqawvKnvQf5umbwu76ueY5fwSY5dj5k",
-  authDomain: "angularlogin-15267.firebaseapp.com",
-  databaseURL: "https://angularlogin-15267.firebaseio.com",
-  projectId: "angularlogin-15267",
-  storageBucket: "angularlogin-15267.appspot.com",
-  messagingSenderId: "878296582076"
+  apiKey: "AIzaSyCtsIcBb0zUkS-x4egUf5fNNqn4A8khLkI",
+    authDomain: "forgetmenot-7b63c.firebaseapp.com",
+    databaseURL: "https://forgetmenot-7b63c.firebaseio.com",
+    projectId: "forgetmenot-7b63c",
+    storageBucket: "forgetmenot-7b63c.appspot.com",
+    messagingSenderId: "852502676925"
 };
 
 @NgModule({

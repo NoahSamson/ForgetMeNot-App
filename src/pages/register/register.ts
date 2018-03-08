@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { User } from '../../models/user.model';
+
 
 /**
  * Generated class for the RegisterPage page.
@@ -15,7 +18,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RegisterPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  // fName: string;
+  // lName: string;
+  // email: string;
+  // Address: string;
+  // pNum: string;
+  // password: string;
+
+  user = {} as User;
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -31,9 +44,14 @@ export class RegisterPage {
      
   }
   radioChecked(){
-    document.getElementById("profilePic").style.display="block";
-    document.getElementById("caretakerInfo").style.display="block";
-  //document.getElementById("picUpload").style.display="block";
+      document.getElementById("profilePic").style.display="block";
+      document.getElementById("caretakerInfo").style.display="block";
+    
+  }
+
+  signup(user: User) {
+    this.authService.signup(user.email, user.password);
+    user.email = user.password = '';
   }
 
 }

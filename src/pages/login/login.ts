@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RegisterPage } from '../register/register';
+
+//auth Service
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { User } from '../../models/user.model';
+
+//Pages
+import { RegisterPage } from '../register/register';
+import { UserPage } from '../user/user';
 
 /**
  * Generated class for the LoginPage page.
@@ -16,8 +22,10 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  email: string;
-  password: string;
+  // email: string;
+  // password: string;
+
+  user = {} as User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
   }
@@ -32,14 +40,11 @@ export class LoginPage {
     this.navCtrl.push(RegisterPage);
   }
 
-  signup() {
-    this.authService.signup(this.email, this.password);
-    this.email = this.password = '';
-  }
+   login(user: User) {
+      this.authService.login(user.email, user.password);
+      user.email = user.password = '';
+        this.navCtrl.push(UserPage);
 
-  login() {
-    this.authService.login(this.email, this.password);
-    this.email = this.password = '';
   }
 
   logout() {

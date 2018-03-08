@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+
+//auth Service
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the UserPage page.
@@ -15,11 +18,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class UserPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, private toast: ToastController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserPage');
+
   }
 
 }

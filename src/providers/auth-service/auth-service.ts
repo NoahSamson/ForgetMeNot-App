@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import {AngularFireAuth} from 'angularfire2/auth';
@@ -32,6 +31,15 @@ export class AuthServiceProvider {
 
   logout(){
     this.firebaseAuth.auth.signOut();
+  }
+
+  state(){
+    // this.firebaseAuth.authState.subscribe(data => {
+    //     this.toast.create({
+    //       message: 'Welcome to APP_NAME, ${data.email}',
+    //       duration: 3000
+    //     }).present();
+    // });
   }
 }
 
