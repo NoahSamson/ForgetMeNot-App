@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 //auth Service
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
@@ -18,7 +18,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class UserPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, private toast: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
   }
 
   ionViewDidLoad() {

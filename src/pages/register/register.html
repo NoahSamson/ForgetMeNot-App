@@ -29,18 +29,6 @@
           <ion-input type="text" [(ngModel)]="user.lName"></ion-input>
         </ion-item>
 
-        <ion-item>
-            <ion-label>E-mail address</ion-label>
-            <ion-input type="email" [(ngModel)]="user.email"></ion-input>
-          </ion-item>
-          <ion-input type="text"></ion-input>
-        </ion-item>      
-
-          <ion-item>
-              <ion-label fixed>Password</ion-label>
-              <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-            </ion-item>
-
           <ion-item>
             <ion-label>Address</ion-label>
             <ion-input type="text" [(ngModel)]="user.address"></ion-input>
@@ -48,16 +36,10 @@
           
           <ion-item>
               <ion-label>Phone Number</ion-label>
-              <ion-input type="number" [(ngModel)]="user.pNum"></ion-input>
+              <ion-input type="text" [(ngModel)]="user.pNum"></ion-input>
             </ion-item>           
-               
-              <button ion-button icon-right id="btnNext" (click)="test()">
-                  Next
-              <ion-icon name="arrow-dropright"></ion-icon>
-                </button>
 
               <ion-input type="number"></ion-input>
-            </ion-item> 
 
             <ion-item>
                 <ion-icon ios="ios-contact" md="md-contact" id="icon"></ion-icon>
@@ -71,7 +53,7 @@
              <ion-list-header id="listHeader">
                Role:
              </ion-list-header>
-
+             
              <ion-item>
                 <ion-label>Caretaker</ion-label>
                 <ion-radio value="caretaker" (ionSelect)="radioCheckedCaretaker()"></ion-radio>
@@ -110,11 +92,11 @@
           <ion-list>
           <ion-item>
             <ion-label>E-mail address</ion-label>
-            <ion-input type="email"></ion-input>
+            <ion-input type="email" ([ngModel]) = "user.email"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Password</ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="password" ([ngModel]) = "user.password"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Confirm Password</ion-label>
