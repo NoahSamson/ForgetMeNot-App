@@ -1,6 +1,16 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import {
+ GoogleMaps,
+ GoogleMap,
+ GoogleMapsEvent,
+ GoogleMapOptions,
+ CameraPosition,
+ MarkerOptions,
+ Marker
+} from '@ionic-native/google-maps';
+
 declare var google: any;
 
 /**
@@ -29,7 +39,7 @@ export class MapPage {
 
    loadMap(){
 	  
-	  
+	  //getting the current position 
 	  let locationOptions = {timeout: 20000, enableHighAccuracy: true};
  
     navigator.geolocation.getCurrentPosition(
@@ -39,10 +49,32 @@ export class MapPage {
             let options = {
               center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
               zoom: 16,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
+              mapTypeId: google.maps.MapTypeId.ROADMAP,			
             }
- 
+		
+			
+		
+			
             this.map = new google.maps.Map(this.mapElement.nativeElement, options);
+			
+			//marking the current position 
+			let marker = new google.maps.Marker({
+			map: this.map,
+			animation: google.maps.Animation.DROP,
+			position: this.map.getCenter()
+			});
+			
+			//adding a radius
+			let circle = new google.maps.Circle({
+			map: this.map,
+			center: this.map.getCenter(),
+			visible:true,
+			radius:50,
+			color:"RED",
+			strokeColor:"RED"
+			
+			});
+			
         },
  
         (error) => {
@@ -63,7 +95,7 @@ export class MapPage {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 	*/
   }
-
+/*
   addMarker(){
  
     let marker = new google.maps.Marker({
@@ -77,7 +109,7 @@ export class MapPage {
     this.addInfoWindow(marker, content);
    
   }
-
+*/
   addInfoWindow(marker, content){
  
     let infoWindow = new google.maps.InfoWindow({
