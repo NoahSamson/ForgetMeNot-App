@@ -1,5 +1,6 @@
+import { UserPage } from './../user/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../../models/user.model';
 
@@ -23,7 +24,7 @@ export class RegisterPage {
   user = {} as User;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public  alertCtrl: AlertController) {}
+  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public  alertCtrl: AlertController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
@@ -47,7 +48,17 @@ export class RegisterPage {
     // this.authService.signup(user.email, user.password);
     // user.email = user.password = '';
     // this.test();
-    this.authService.signupService(user);
+    this.authService.signupService(user).then(authData => {
+      this.navCtrl.push(UserPage);
+      let toast =this.toastCtrl.create({
+        message: 'Welcome',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      user.email = user.password = '';
+      
+    }) ;
   }
   
   radioCheckedPatient(){
