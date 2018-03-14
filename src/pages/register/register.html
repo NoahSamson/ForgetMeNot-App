@@ -16,30 +16,46 @@
 
 <ion-content padding>
    
+  <div id="regForm">
+    <ion-list>
+    <ion-item>
+      <ion-label>E-mail address: </ion-label>
+      <ion-input type="email" [(ngModel)] = "user.email" name="email" required="required"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password: </ion-label>
+      <ion-input type="password" [(ngModel)] = "user.password" name="password" required="required"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Confirm Password: </ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <button ion-button id="btnRegister"ion-button (click)="test()">Next</button>
+  </ion-list>
+</div>
+
 
    
-    <ion-list id="regForm">
+    <ion-list id="otherDetails">
         <ion-item>
           <ion-label>First Name</ion-label>
-          <ion-input type="text" [(ngModel)]="user.firstName"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.firstName" name="firstName"></ion-input>
         </ion-item>
       
         <ion-item>
           <ion-label>Last Name</ion-label>
-          <ion-input type="text" [(ngModel)]="user.lastName"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.lastName" name="lastName"></ion-input>
         </ion-item>
 
           <ion-item>
             <ion-label>Address</ion-label>
-            <ion-input type="text" [(ngModel)]="user.address"></ion-input>
+            <ion-input type="text" [(ngModel)]="user.address" name="address"></ion-input>
           </ion-item>
           
           <ion-item>
               <ion-label>Phone Number</ion-label>
-              <ion-input type="text" [(ngModel)]="user.phoneNum"></ion-input>
+              <ion-input type="text" [(ngModel)]="user.phoneNum" name="phoneNum"></ion-input>
             </ion-item>           
-
-              <ion-input type="number"></ion-input>
 
             <ion-item>
                 <ion-icon ios="ios-contact" md="md-contact" id="icon"></ion-icon>
@@ -48,7 +64,7 @@
                 
             </ion-item>
 
-            <div id="radioChoose">
+            <!-- <div id="radioChoose">
               <ion-list radio-group>
              <ion-list-header id="listHeader">
                Role:
@@ -56,17 +72,17 @@
              
              <ion-item>
                 <ion-label>Caretaker</ion-label>
-                <ion-radio value="caretaker" (ionSelect)="radioCheckedCaretaker()"></ion-radio>
+                <ion-radio value="caretaker" (ionSelect)="radioCheckedCaretaker()" [(ngModel)]="user.type" name="type"></ion-radio>
               </ion-item>
              <ion-item>
                  <ion-label>Patient</ion-label>
-                 <ion-radio  value="patient" (ionSelect)="radioCheckedPatient()"></ion-radio>
+                 <ion-radio  value="patient" (ionSelect)="radioCheckedPatient()" [(ngModel)]="user.type" name="type"></ion-radio>
                </ion-item>          
                </ion-list>     
-               </div>   
+               </div>    -->
                
      
-     <div id="caretakerInfo">
+     <!-- <div id="caretakerInfo">
             <ion-list>
                 <br><br><br><br>
               <ion-list-header id="listHeader">
@@ -81,30 +97,15 @@
                   <ion-input type="text"></ion-input>
               </ion-item>       
               </ion-list>
-         </div>            
-         <button ion-button icon-right id="btnNext" (click)="test()">
-            Next
+         </div>             -->
+         <button ion-button icon-right id="btnNext" (click)="signup(user)">
+            Register
         <ion-icon name="arrow-dropright"></ion-icon>
           </button>   
       
       </ion-list>
-      <div id="otherDetails">
-          <ion-list>
-          <ion-item>
-            <ion-label>E-mail address</ion-label>
-            <ion-input type="email" ([ngModel]) = "user.email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Password</ion-label>
-            <ion-input type="password" ([ngModel]) = "user.password"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Confirm Password</ion-label>
-            <ion-input type="password"></ion-input>
-          </ion-item>
-        </ion-list>
-      </div>
+      
 
-      <button id="btnRegister"ion-button (click)= "signup(user)">Register</button>
+      <!-- <button id="btnRegister"ion-button (click)= "signup(user)">Register</button> -->
 
 </ion-content>

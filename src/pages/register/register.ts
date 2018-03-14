@@ -20,13 +20,6 @@ var validateRadio;
 })
 export class RegisterPage {
 
-  // fName: string;
-  // lName: string;
-  // email: string;
-  // Address: string;
-  // pNum: string;
-  // password: string;
-
   user = {} as User;
 
 
@@ -37,21 +30,24 @@ export class RegisterPage {
   }
 
   test(){
-    if(validateRadio){
     document.getElementById("regForm").style.display="none";
-     document.getElementById("otherDetails").style.display="block";
-     document.getElementById("btnRegister").style.display="block";
-    }
-    else{
-        this.presentAlert();
-    }
+    document.getElementById("otherDetails").style.display="block";
+
+    // if(validateRadio){
+    
+    // }
+    // else{
+    //     this.presentAlert();
+    // }
      
      
   }
 
   signup(user: User) {
-    this.authService.signup(user.email, user.password);
-    user.email = user.password = '';
+    // this.authService.signup(user.email, user.password);
+    // user.email = user.password = '';
+    // this.test();
+    this.authService.signupService(user);
   }
   
   radioCheckedPatient(){

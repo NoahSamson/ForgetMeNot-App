@@ -28,11 +28,12 @@
     "@ionic/pro": "1.0.19",
     "@ionic/storage": "2.1.3",
     "angularfire2": "^5.0.0-rc.6",
+    "build": "0.1.4",
     "cordova": "8.0.0",
     "cordova-android": "7.0.0",
     "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
-    "cordova-plugin-googlemaps": "^2.2.5",
+    "cordova-plugin-googlemaps": "^2.2.7",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -53,7 +54,9 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-googlemaps": {
-        "API_KEY_FOR_ANDROID": "AIzaSyCb7KXlEw373SYjLEEfktWvJZK-QvIzB_8"
+        "API_KEY_FOR_ANDROID": "AIzaSyCb7KXlEw373SYjLEEfktWvJZK-QvIzB_8",
+        "PLAY_SERVICES_VERSION": "11.8.0",
+        "ANDROID_SUPPORT_V4_VERSION": "24.1.0"
       },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-device": {},

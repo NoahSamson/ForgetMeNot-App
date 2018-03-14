@@ -34,3 +34,31 @@
         </ion-item>
       </ion-list>
 </ion-content>
+
+
+<!-- Dynamic user Profile -->
+<ion-content >
+    <ion-list >
+      <ion-item>
+          <img id ="userPic" src="assets/imgs/patient.jpg"/>
+      </ion-item>
+
+      <ion-label>User Name :</ion-label>
+      <ion-item [(ngModel)]="user.userName"></ion-item>
+
+        <ion-label>First Name :</ion-label>
+        <ion-item [(ngModel)]="user.firstName"></ion-item>
+
+        <ion-label>Last Name: </ion-label>
+        <ion-item [(ngModel)]="user.lastName"></ion-item>
+
+        <ion-label>Telephone: </ion-label>
+        <ion-item [(ngModel)]="user.phoneNum"></ion-item>
+        
+        <ion-label>Care Taker: </ion-label>
+        <ion-item [(ngModel)]="user.caretaker"></ion-item>
+        
+        <ion-label>Address: </ion-label>
+        <ion-item [(ngModel)]="user.address"></ion-item>
+      </ion-list>
+</ion-content>

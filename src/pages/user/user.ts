@@ -1,9 +1,12 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 //auth Service
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
+//import Model
+import { User } from '../../models/user.model';
 /**
  * Generated class for the UserPage page.
  *
@@ -17,6 +20,8 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
   templateUrl: 'user.html',
 })
 export class UserPage {
+
+  user = {} as User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
   }

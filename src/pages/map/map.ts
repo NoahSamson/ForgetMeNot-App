@@ -28,6 +28,7 @@ declare var google: any;
 export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  circle:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -36,6 +37,38 @@ export class MapPage {
     console.log('ionViewDidLoad MapPage');
     this.loadMap();
   }
+
+  addRadius(){
+    var myradius = parseInt(prompt("Enter radius in meters"));
+    let locationOptions = {timeout: 20000, enableHighAccuracy: true};
+ 
+    navigator.geolocation.getCurrentPosition(
+ 
+        (position) => {
+ 
+            let options = {
+              center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+              zoom: 16,
+              mapTypeId: google.maps.MapTypeId.ROADMAP,			
+            }
+
+            //adding a radius
+  this.circle = new google.maps.Circle({
+    map: this.map,
+    center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+    visible:true,
+    radius:myradius,
+    color:"RED",
+    strokeColor:"RED"
+    
+    });
+  },
+ 
+  (error) => {
+      console.log(error);
+  }, locationOptions
+);
+}
 
    loadMap(){
 	  
@@ -51,49 +84,21 @@ export class MapPage {
               zoom: 16,
               mapTypeId: google.maps.MapTypeId.ROADMAP,			
             }
-		
-			
-		
-			
             this.map = new google.maps.Map(this.mapElement.nativeElement, options);
 			
 			//marking the current position 
 			let marker = new google.maps.Marker({
 			map: this.map,
 			animation: google.maps.Animation.DROP,
-			position: this.map.getCenter()
+			position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 			});
-			
-			//adding a radius
-			let circle = new google.maps.Circle({
-			map: this.map,
-			center: this.map.getCenter(),
-			visible:true,
-			radius:50,
-			color:"RED",
-			strokeColor:"RED"
-			
-			});
-			
+				
         },
  
         (error) => {
             console.log(error);
         }, locationOptions
     );
-	  
-	   
-	  
-    /* this.latLng = new google.maps.LatLng( 6.874092, 79.860497.);
-
-    let mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-
-    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-	*/
   }
 /*
   addMarker(){
