@@ -32,10 +32,13 @@ export class LoginPage {
   user = {} as User;
 
   constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+   
+
   }
 
   goToRegisterPage(){
@@ -46,9 +49,9 @@ export class LoginPage {
 
    login(user: User) {
       this.authService.login(user.email, user.password).then(authData => {
-        this.navCtrl.push(HomePage);
+        this.navCtrl.push(UserPage);
         let toast =this.toastCtrl.create({
-          message: 'Welcome',
+          message: 'Welcome' + this.authService.getCurrentUser(),
           duration: 3000,
           position: 'bottom'
         });

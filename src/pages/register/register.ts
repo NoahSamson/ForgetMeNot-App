@@ -82,7 +82,7 @@ export class RegisterPage {
     this.authService.signupService(user).then(authData => {
       this.navCtrl.push(UserPage);
       let toast =this.toastCtrl.create({
-        message: 'Welcome',
+        message: 'Welcome '+ user.firstName,
         duration: 3000,
         position: 'bottom'
       });

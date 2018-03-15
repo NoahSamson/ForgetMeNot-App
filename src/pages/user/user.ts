@@ -20,15 +20,21 @@ import { User } from '../../models/user.model';
   templateUrl: 'user.html',
 })
 export class UserPage {
-
+  id: any;
   user = {} as User;
-
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
+    this.id = authService.getCurrentUser();
+    console.log(this.user);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserPage');
 
+  }
+
+  getUserData(){
+    this.user = this.authService.getDatabaseRef().ref('/users/' + this.id);
+    
   }
 
 }

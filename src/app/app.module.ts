@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
 
+
 //page imports
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';

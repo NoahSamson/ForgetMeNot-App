@@ -29,12 +29,9 @@ export class AuthServiceProvider {
     });
   }
 
-  signup(email: string, password: string){
-    this.firebaseAuth.auth.createUserWithEmailAndPassword(email, password).then(value =>{
-      console.log('Success', value);
-    }).catch(err =>{
-      console.log('ERROR!!', err.message);
-    });
+  getDatabaseRef(): any {
+     var database = firebase.database();
+    return database;
   }
 
   signupService(account: {}){
@@ -62,6 +59,10 @@ export class AuthServiceProvider {
 
   logout(){
     this.firebaseAuth.auth.signOut();
+  }
+
+  getCurrentUser(): any {
+    return this.firebaseAuth.auth.currentUser.uid;
   }
 
 }
