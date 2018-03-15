@@ -31,6 +31,7 @@ export class MapPage {
   circle:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    
   }
 
   ionViewDidLoad() {
@@ -39,7 +40,9 @@ export class MapPage {
   }
 
   addRadius(){
+    
     var myradius = parseInt(prompt("Enter radius in meters"));
+    
     let locationOptions = {timeout: 20000, enableHighAccuracy: true};
  
     navigator.geolocation.getCurrentPosition(
@@ -51,6 +54,14 @@ export class MapPage {
               zoom: 16,
               mapTypeId: google.maps.MapTypeId.ROADMAP,			
             }
+
+            if(this.circle!= null){
+              this.circle.setMap(null);
+              this.circle = null;
+              console.log(this.circle);
+            }
+            
+
 
             //adding a radius
   this.circle = new google.maps.Circle({
@@ -68,6 +79,8 @@ export class MapPage {
       console.log(error);
   }, locationOptions
 );
+
+  
 }
 
    loadMap(){
