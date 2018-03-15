@@ -23,11 +23,13 @@ export class AuthServiceProvider {
   }
 
   login(email: string, password: string){
-    this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(value =>{
+   const result =  this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(value =>{
       console.log('Logged in');
     }).catch(err =>{
       console.log('ERROR!!', err.message);
     });
+
+    
   }
 
   logout(){

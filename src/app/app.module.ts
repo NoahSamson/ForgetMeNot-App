@@ -2,6 +2,10 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Patient } from "../../src/models/Patient";
+import { Profile } from "../../src/models/Profile";
+import { AngularFireDatabaseModule  } from "angularfire2/database";
+
 
 //page imports
 import { HomePage } from '../pages/home/home';
@@ -19,20 +23,20 @@ import { UserPage } from '../pages/user/user';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import {Camera} from '@ionic-native/camera';
 //Firebase
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 //export firebase configuration
 export const firebaseConfig = {
-  apiKey: "AIzaSyBhOqawvKnvQf5umbwu76ueY5fwSY5dj5k",
-  authDomain: "angularlogin-15267.firebaseapp.com",
-  databaseURL: "https://angularlogin-15267.firebaseio.com",
-  projectId: "angularlogin-15267",
-  storageBucket: "angularlogin-15267.appspot.com",
-  messagingSenderId: "878296582076"
+  apiKey: "AIzaSyCtsIcBb0zUkS-x4egUf5fNNqn4A8khLkI",
+  authDomain: "forgetmenot-7b63c.firebaseapp.com",
+  databaseURL: "https://forgetmenot-7b63c.firebaseio.com",
+  projectId: "forgetmenot-7b63c",
+  storageBucket: "forgetmenot-7b63c.appspot.com",
+  messagingSenderId: "852502676925"
 };
 
 @NgModule({
@@ -55,7 +59,8 @@ export const firebaseConfig = {
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -77,7 +82,10 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    Camera,
+    AngularFireDatabaseModule
+    
   ]
 })
 export class AppModule {}
