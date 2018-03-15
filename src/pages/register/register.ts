@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component , NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -11,7 +12,17 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { UserPage } from '../user/user';
 import { AngularFireDatabase } from "angularfire2/database";
 
+=======
+import { UserPage } from './../user/user';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { User } from '../../models/user.model';
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
 
+import { AlertController } from 'ionic-angular';
+
+var validateRadio;
 /**
  * Generated class for the RegisterPage page.
  *
@@ -27,6 +38,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 })
 export class RegisterPage {
 
+<<<<<<< HEAD
   //captureDataUrl: string;
   alertCtrl: AlertController;
   public myPhotosRef: any;
@@ -45,6 +57,12 @@ export class RegisterPage {
 
    
   }
+=======
+  user = {} as User;
+
+
+  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public  alertCtrl: AlertController) {}
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
 
   
 
@@ -54,15 +72,38 @@ export class RegisterPage {
 
   test(){
     document.getElementById("regForm").style.display="none";
-     document.getElementById("profilePic").style.display="block";
-     document.getElementById("btnRegister").style.display="block";
+    document.getElementById("otherDetails").style.display="block";
+
+    // if(validateRadio){
+    
+    // }
+    // else{
+    //     this.presentAlert();
+    // }
      
-     document.getElementById("btnNext").style.display="none";
      
   }
-  radioChecked(){
-    document.getElementById("profilePic").style.display="block";
+
+  signup(user: User) {
+    // this.authService.signup(user.email, user.password);
+    // user.email = user.password = '';
+    // this.test();
+    this.authService.signupService(user).then(authData => {
+      this.navCtrl.push(UserPage);
+      let toast =this.toastCtrl.create({
+        message: 'Welcome',
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      user.email = user.password = '';
+      
+    }) ;
+  }
+  
+  radioCheckedPatient(){
     document.getElementById("caretakerInfo").style.display="block";
+<<<<<<< HEAD
     this.display();
   //document.getElementById("picUpload").style.display="block";
   }
@@ -218,4 +259,25 @@ export class RegisterPage {
 
   */
   
+=======
+    document.getElementById("btnNext").style.bottom= "-40px";
+    validateRadio=true;
+
+  }
+
+  radioCheckedCaretaker(){
+    document.getElementById("caretakerInfo").style.display="none";
+    validateRadio=true;
+
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Please select a role',
+      subTitle: '',
+      buttons: ['Dismiss']
+    });
+    alert.present();
+  }
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
 }

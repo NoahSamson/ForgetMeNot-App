@@ -8,30 +8,33 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>register</ion-title>
+    <ion-title>Registration</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <div id="profilePic">
-        <ion-list radio-group>
-            <ion-list-header id="listHeader">
-              Role:
-            </ion-list-header>
-            <ion-item>
-                <ion-label>Patient</ion-label>
-                <ion-radio checked="true" value="patient"></ion-radio>
-              </ion-item>
-            
-              <ion-item>
-                <ion-label>Caretaker</ion-label>
-                <ion-radio value="caretaker"(ionSelect)="radioChecked()"></ion-radio>
-              </ion-item>
-              </ion-list>        
-    </div> 
+   
+  <div id="regForm">
+    <ion-list>
+    <ion-item>
+      <ion-label>E-mail address: </ion-label>
+      <ion-input type="email" [(ngModel)] = "user.email" name="email" required="required"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password: </ion-label>
+      <ion-input type="password" [(ngModel)] = "user.password" name="password" required="required"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Confirm Password: </ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    <button ion-button id="btnRegister"ion-button (click)="test()">Next</button>
+  </ion-list>
+</div>
 
+<<<<<<< HEAD
     <div id="caretakerInfo">
       <br><br><br><br>
       <ion-list>
@@ -57,16 +60,23 @@
         </ion-item>
         </ion-list>
     </div>
+=======
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
 
    
-    <ion-list id="regForm">
+    <ion-list id="otherDetails">
         <ion-item>
           <ion-label>First Name</ion-label>
+<<<<<<< HEAD
           <ion-input type="text" [(ngModel)]="profile.fname"></ion-input>
+=======
+          <ion-input type="text" [(ngModel)]="user.firstName" name="firstName"></ion-input>
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
         </ion-item>
       
         <ion-item>
           <ion-label>Last Name</ion-label>
+<<<<<<< HEAD
           <ion-input type="text" [(ngModel)]="profile.lname"></ion-input>
         </ion-item>
 
@@ -83,21 +93,78 @@
           <ion-item>
             <ion-label>Address</ion-label>
             <ion-input type="text" [(ngModel)]="profile.address"></ion-input>
-          </ion-item>
-          
+=======
+          <ion-input type="text" [(ngModel)]="user.lastName" name="lastName"></ion-input>
+        </ion-item>
 
           <ion-item>
+            <ion-label>Address</ion-label>
+            <ion-input type="text" [(ngModel)]="user.address" name="address"></ion-input>
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
+          </ion-item>
+          
+          <ion-item>
               <ion-label>Phone Number</ion-label>
+<<<<<<< HEAD
               <ion-input type="number" [(ngModel)]="profile.phoneNum"></ion-input>
+=======
+              <ion-input type="text" [(ngModel)]="user.phoneNum" name="phoneNum"></ion-input>
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
             </ion-item>           
+
+            <ion-item>
+                <ion-icon ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+                <br>
+                <button ion-button clear>Upload Picture</button><br>
+                
+            </ion-item>
+
+            <!-- <div id="radioChoose">
+              <ion-list radio-group>
+             <ion-list-header id="listHeader">
+               Role:
+             </ion-list-header>
+             
+             <ion-item>
+                <ion-label>Caretaker</ion-label>
+                <ion-radio value="caretaker" (ionSelect)="radioCheckedCaretaker()" [(ngModel)]="user.type" name="type"></ion-radio>
+              </ion-item>
+             <ion-item>
+                 <ion-label>Patient</ion-label>
+                 <ion-radio  value="patient" (ionSelect)="radioCheckedPatient()" [(ngModel)]="user.type" name="type"></ion-radio>
+               </ion-item>          
+               </ion-list>     
+               </div>    -->
                
-              <button ion-button icon-right id="btnNext" (click)="test()">
-                  Next
-              <ion-icon name="arrow-dropright"></ion-icon>
-                </button>
+     
+     <!-- <div id="caretakerInfo">
+            <ion-list>
+                <br><br><br><br>
+              <ion-list-header id="listHeader">
+                  Link with your Caretaker!
+                </ion-list-header>
+              <ion-item>
+                <ion-label>Caretaker's mail address:</ion-label> 
+                <ion-input type="text"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label>Verification Code:</ion-label> 
+                  <ion-input type="text"></ion-input>
+              </ion-item>       
+              </ion-list>
+         </div>             -->
+         <button ion-button icon-right id="btnNext" (click)="signup(user)">
+            Register
+        <ion-icon name="arrow-dropright"></ion-icon>
+          </button>   
       
       </ion-list>
+      
 
+<<<<<<< HEAD
       <button id="btnRegister"ion-button >Register</button>
+=======
+      <!-- <button id="btnRegister"ion-button (click)= "signup(user)">Register</button> -->
+>>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
 
 </ion-content>
