@@ -23,7 +23,8 @@ export class GalleryPage {
   public alertCtrl: AlertController;
   assetCollection:any;
 
-  constructor(private camera:Camera,public navCtrl: NavController, public navParams: NavParams,public loadingCtrl: LoadingController, alertCtrl: AlertController ) {
+  constructor(private camera:Camera,public navCtrl: NavController, public navParams: NavParams,
+    public loadingCtrl: LoadingController, alertCtrl: AlertController ) {
     this.alertCtrl = alertCtrl;
   }
 

@@ -37,13 +37,6 @@ export class AuthServiceProvider {
     });
   }
 
-<<<<<<< HEAD
-  login(email: string, password: string){
-   const result =  this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(value =>{
-      console.log('Logged in');
-    }).catch(err =>{
-      console.log('ERROR!!', err.message);
-=======
   signupService(account: {}){
     return this.firebaseAuth.auth.createUserWithEmailAndPassword(account['email'], account['password']).then((newUser) =>{
       //sign in user
@@ -53,7 +46,6 @@ export class AuthServiceProvider {
           account
         );
       });
->>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
     });
 
     

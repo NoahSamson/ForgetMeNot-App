@@ -1,26 +1,18 @@
-<<<<<<< HEAD
 import { Component , NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading, ToastController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { firebaseConfig } from "../../app/app.module";
 import {storage} from 'firebase';
 import firebase from 'firebase';
 import { GalleryPage } from '../gallery/gallery';
-import { Profile } from '../../models/Profile';
+
 import { AngularFireAuth } from "AngularFire2/auth";
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { UserPage } from '../user/user';
 import { AngularFireDatabase } from "angularfire2/database";
-
-=======
-import { UserPage } from './../user/user';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { User } from '../../models/user.model';
->>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
 
-import { AlertController } from 'ionic-angular';
+
 
 var validateRadio;
 /**
@@ -38,7 +30,6 @@ var validateRadio;
 })
 export class RegisterPage {
 
-<<<<<<< HEAD
   //captureDataUrl: string;
   alertCtrl: AlertController;
   public myPhotosRef: any;
@@ -47,22 +38,22 @@ export class RegisterPage {
   public imageSrc: string;
   public loading:Loading;
   
-  profile = {} as Profile;
+  
+  user = {} as User;
 
-  constructor( private firebaseAuth: AngularFireAuth, private camera : Camera ,public navCtrl: NavController,alertCtrl: AlertController, public navParams: NavParams , 
-    public zone:NgZone,public loadingCtrl: LoadingController, firebasedb : AngularFireDatabase) {
+
+  constructor( private firebaseAuth: AngularFireAuth, private camera : Camera ,public navCtrl: NavController,
+    alertCtrl: AlertController, public navParams: NavParams , public toastCtrl: ToastController,  
+    public zone:NgZone,public loadingCtrl: LoadingController, firebasedb : AngularFireDatabase, public authService: AuthServiceProvider) {
     this.myPhotosRef = firebase.storage().ref('/Photos/myphoto'); 
     this.alertCtrl =  alertCtrl;
 
 
    
   }
-=======
-  user = {} as User;
+  
 
-
-  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public  alertCtrl: AlertController) {}
->>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
+ 
 
   
 
@@ -103,7 +94,6 @@ export class RegisterPage {
   
   radioCheckedPatient(){
     document.getElementById("caretakerInfo").style.display="block";
-<<<<<<< HEAD
     this.display();
   //document.getElementById("picUpload").style.display="block";
   }
@@ -259,11 +249,10 @@ export class RegisterPage {
 
   */
   
-=======
-    document.getElementById("btnNext").style.bottom= "-40px";
-    validateRadio=true;
+  //   document.getElementById("btnNext").style.bottom= "-40px";
+  //   validateRadio=true;
 
-  }
+  // }
 
   radioCheckedCaretaker(){
     document.getElementById("caretakerInfo").style.display="none";
@@ -279,5 +268,4 @@ export class RegisterPage {
     });
     alert.present();
   }
->>>>>>> 33450c3d258024446354e17d3db2a1ccb2590e4c
 }
