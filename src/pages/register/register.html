@@ -34,6 +34,31 @@
   </ion-list>
 </div>
 
+    <div id="caretakerInfo">
+      <br><br><br><br>
+      <ion-list>
+        <ion-list-header id="listHeader">
+            Link with your Caretaker!
+          </ion-list-header>
+        <ion-item>
+          <ion-label>Caretaker's mail address:</ion-label> 
+          <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>Verification Code:</ion-label> 
+            <ion-input type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-icon ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+            <br>
+            <button ion-button (click)="capture()">Upload Picture</button><br>
+            <button ion-button (click)="upload()" *ngIf="imageSrc">Upload to Firebase!</button>
+        <br>
+            <img src="{{imageSrc}}"> 
+            
+        </ion-item>
+        </ion-list>
+    </div>
 
    
     <ion-list id="otherDetails">

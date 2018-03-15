@@ -44,6 +44,8 @@ export class AuthServiceProvider {
         );
       });
     });
+
+    
   }
 
   login(email: string, password: string):any{

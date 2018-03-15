@@ -14,6 +14,8 @@
 
 </ion-header>
 <ion-content>
+  <div id ="stored">
+    <button ion-button (click)="showUpload()">Upload myself</button>
   <ion-label id="titles">
     Today
     <hr>
@@ -59,4 +61,24 @@
           
         </table>
       </ion-label>
+  </div>
+<div id="add" style="display:none"> 
+    <button ion-button (click)="capture()">Capture and upload Picture</button>
+    <button ion-button (click)="loadData()">Load</button>
+    <br>
+    <img src="{{imageSrc}}"> 
+    <button ion-button (click)="upload()" *ngIf="imageSrc">Upload to Firebase!</button>
+    
+</div>
+<div id="loaded" style="display:none;">
+  <ion-list>
+    <ion-item *ngFor="let item of assetCollection">
+     <p>{{item.name}}</p>
+      <img [src]=item.URL/>
+      <hr>
+    </ion-item>
+  </ion-list>
+
+</div>
+
 </ion-content>

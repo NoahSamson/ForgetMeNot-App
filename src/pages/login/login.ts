@@ -20,8 +20,11 @@ import { UserPage } from '../user/user';
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
+  
 })
+
+
 export class LoginPage {
   // email: string;
   // password: string;

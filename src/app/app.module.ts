@@ -22,21 +22,21 @@ import { UserPage } from '../pages/user/user';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import {Camera} from '@ionic-native/camera';
 //Firebase
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 //export firebase configuration
 export const firebaseConfig = {
   apiKey: "AIzaSyCtsIcBb0zUkS-x4egUf5fNNqn4A8khLkI",
-    authDomain: "forgetmenot-7b63c.firebaseapp.com",
-    databaseURL: "https://forgetmenot-7b63c.firebaseio.com",
-    projectId: "forgetmenot-7b63c",
-    storageBucket: "forgetmenot-7b63c.appspot.com",
-    messagingSenderId: "852502676925"
+  authDomain: "forgetmenot-7b63c.firebaseapp.com",
+  databaseURL: "https://forgetmenot-7b63c.firebaseio.com",
+  projectId: "forgetmenot-7b63c",
+  storageBucket: "forgetmenot-7b63c.appspot.com",
+  messagingSenderId: "852502676925"
 };
 
 @NgModule({
@@ -82,7 +82,10 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    Camera,
+    AngularFireDatabaseModule
+    
   ]
 })
 export class AppModule {}
