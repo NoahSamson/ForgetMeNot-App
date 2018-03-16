@@ -22,19 +22,19 @@ import { User } from '../../models/user.model';
 export class UserPage {
   id: any;
   user = {} as User;
+  userRef: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider) {
+    
+    //Get the uid of the current User
     this.id = authService.getCurrentUser();
-    console.log(this.user);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserPage');
-
-  }
-
-  getUserData(){
-    this.user = this.authService.getDatabaseRef().ref('/users/' + this.id);
-    
+        //Get the Firebase database reference of current User's Profile
+        this.userRef = this.authService.getUserprofileRef(this.id);
+        console.log(this.user);
   }
 
 }

@@ -8,7 +8,8 @@ import {
  GoogleMapOptions,
  CameraPosition,
  MarkerOptions,
- Marker
+ Marker,
+ Circle
 } from '@ionic-native/google-maps';
 
 declare var google: any;
@@ -30,7 +31,12 @@ export class MapPage {
   map: any;
   circle:any;
 
+  //latlang new variables 
+  latitude:any;
+  longitute:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    
   }
 
   ionViewDidLoad() {
@@ -39,7 +45,9 @@ export class MapPage {
   }
 
   addRadius(){
+    
     var myradius = parseInt(prompt("Enter radius in meters"));
+    
     let locationOptions = {timeout: 20000, enableHighAccuracy: true};
  
     navigator.geolocation.getCurrentPosition(
@@ -52,6 +60,14 @@ export class MapPage {
               mapTypeId: google.maps.MapTypeId.ROADMAP,			
             }
 
+            if(this.circle!= null){
+              this.circle.setMap(null);
+              this.circle = null;
+              console.log(this.circle);
+            }
+            
+
+
             //adding a radius
   this.circle = new google.maps.Circle({
     map: this.map,
@@ -62,12 +78,21 @@ export class MapPage {
     strokeColor:"RED"
     
     });
+
+    this.checkRadius();
+    
+    
+    
   },
  
   (error) => {
       console.log(error);
   }, locationOptions
 );
+
+
+
+
 }
 
    loadMap(){
@@ -83,8 +108,17 @@ export class MapPage {
               center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
               zoom: 16,
               mapTypeId: google.maps.MapTypeId.ROADMAP,			
+             
             }
             this.map = new google.maps.Map(this.mapElement.nativeElement, options);
+
+              this.latitude=position.coords.latitude;
+              this.longitute=position.coords.longitude;
+            //
+
+           
+
+            
 			
 			//marking the current position 
 			let marker = new google.maps.Marker({
@@ -92,13 +126,38 @@ export class MapPage {
 			animation: google.maps.Animation.DROP,
 			position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 			});
-				
+        
+      
+
         },
  
         (error) => {
             console.log(error);
         }, locationOptions
     );
+
+
+   
+    
+  }
+
+    //to check in and out
+   checkRadius() {
+    if(this.circle!= null){
+
+      if(navigator.geolocation){
+
+        let from =this.circle.center;
+        let to = new google.maps.LatLng(this.latitude,this.longitute);
+        if(google.maps.geometry.spherical.computeDistanceBetween(from, to) <= this.circle.radius){
+          alert("in");
+        }else{
+          alert("out");
+        }
+    
+  }
+    }
+    this.checkRadius();
   }
 /*
   addMarker(){
