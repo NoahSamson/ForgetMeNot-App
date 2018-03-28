@@ -28,6 +28,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { LongPressModule } from 'ionic-long-press';
 
 //export firebase configuration
 export const firebaseConfig = {
@@ -60,7 +61,8 @@ export const firebaseConfig = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    LongPressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

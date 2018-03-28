@@ -1,11 +1,11 @@
-export interface User{
+export interface Members{
     email: string;
-    password: string;
-    userName: string;
     firstName: string;
     lastName: string;
     address: string;
     phoneNum: string;
-    caretaker: string;
+    DOB: Date;
+    relationship: string;
+    memberPics: string[];
     role: string;
 }

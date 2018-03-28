@@ -1,11 +1,11 @@
-export interface User{
+export interface Caretaker{
     email: string;
     password: string;
-    userName: string;
     firstName: string;
     lastName: string;
     address: string;
     phoneNum: string;
-    caretaker: string;
+    DOB: Date;
+    patient: string;
     role: string;
 }

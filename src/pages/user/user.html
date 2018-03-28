@@ -7,32 +7,46 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      John
+      {{user.firstName}}
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">Logout</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content >
     <ion-list >
-        <ion-item type="text">{{user.firstName}}</ion-item>
-
       <ion-item>
           <img id ="userPic" src="assets/imgs/patient.jpg"/>
       </ion-item>
+
         <ion-item>
-          First Name : John
-                </ion-item>
+          First Name : {{user.firstName}}
+        </ion-item>
+
         <ion-item>
-          Last Name : Antony
+          Last Name : {{user.lastName}}
         </ion-item>
+
         <ion-item >
-          Telephone : 0777563470
+            Address : {{user.address}}
+          </ion-item>
+
+        <ion-item >
+          Telephone : {{user.phoneNum}}
         </ion-item>
+
         <ion-item >
-          Care Taker : Teena Roy
+            Email : {{user.email}}
+          </ion-item>
+
+        <ion-item >
+          Care Taker : {{user.caretaker}}
         </ion-item>
+
         <ion-item >
-          User ID : W1626668
+          User ID : {{user.userName}}
         </ion-item>
       </ion-list>
 </ion-content>

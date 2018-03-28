@@ -6,79 +6,137 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>
+    <ion-title id ="title">
       Gallery
     </ion-title>
   </ion-navbar>
-
-
 </ion-header>
+
 <ion-content>
-  <div id ="stored">
-    <button ion-button (click)="showUpload()">Upload myself</button>
-  <ion-label id="titles">
-    Today
-    <hr>
-    <table cellpadding="0" cellspacing="0">
-      <tr>
-        <td><img src="assets/imgs/g1.jpg"/></td>
-        <td><img src="assets/imgs/g6.jpg"/></td>
-       
-        
-      </tr>
-      <tr>
-          <td><img src="assets/imgs/g7.jpg"/></td>
-          <td><img src="assets/imgs/g8.jpg"/></td>
-
-         
-        </tr>
-    </table>
-  </ion-label>
   
+  <!--To display the buttons to navigate-->
+  <ion-grid>
+    <ion-row>
+      <ion-col col col-5 col-md-5 col-xl-5>
+        <!--Gallery Button -->
+        <button ion-button small outline color="dark"  id="btnGallery" icon-start (click)="goToGallery()">
+            <ion-icon  name="md-photos"></ion-icon>
+            Gallery  
+        </button>
+      </ion-col>
 
-  <ion-label id="titles">
-      Yesterday
-      <hr>
-      <table cellpadding="0" cellspacing="0">
-        <tr>
-            <td><iframe src="https://www.youtube.com/embed/lTLTs2ZA2JQ?rel=0&amp;showinfo=0" frameborder="0" style="width:60%;height:20%;"></iframe></td>
-        </tr>
-        <tr>
-            <td><img src="assets/imgs/g5.jpg"/></td>
-           
-          </tr>
-      </table>
-    </ion-label>
+      <ion-col>
+        <!--Album Button -->
+          <button ion-button small outline color="dark" id="btnAlbum" icon-start (click)="openAlbum()">
+              <ion-icon name="albums"></ion-icon>
+              Albums </button>  
+      </ion-col>
 
-    <ion-label id="titles">
-        23.10.17
+      <ion-col>
+            <!--Capture Button -->
+              <button ion-button small outline color="dark" id="btnCapture" icon-start (click)="capture()">
+                  <ion-icon name="add"></ion-icon>
+                  Capture </button>
+      </ion-col>
+    </ion-row>
+    <hr>
+  </ion-grid>
+
+<!--Division to display the Folders in the album -->
+  <div id="albums" style="display:none;">
+    <br><br><br>
+      <ion-list id="grid2"> 
+          <ion-item  *ngFor="let item of albumFolders" >
+              <button ion-button clear color="dark" icon-only (click)="openFolder(item.id)">
+                  <ion-icon  style="font-size:40px" name="albums"></ion-icon>
+                 &nbsp; &nbsp;  &nbsp;  {{item.id}}
+              </button>
+          </ion-item>
         <hr>
-        <table cellpadding="0" cellspacing="0">
-          <tr>
-            <td><img src="assets/imgs/g2.jpg"/></td>
-            <td><img src="assets/imgs/g3.jpg"/></td>
-          </tr>
-          
-        </table>
-      </ion-label>
+      </ion-list>
   </div>
-<div id="add" style="display:none"> 
-    <button ion-button (click)="capture()">Capture and upload Picture</button>
-    <button ion-button (click)="loadData()">Load</button>
-    <br>
-    <img src="{{imageSrc}}"> 
-    <button ion-button (click)="upload()" *ngIf="imageSrc">Upload to Firebase!</button>
-    
-</div>
-<div id="loaded" style="display:none;">
-  <ion-list>
-    <ion-item *ngFor="let item of assetCollection">
-     <p>{{item.name}}</p>
-      <img [src]=item.URL/>
-      <hr>
-    </ion-item>
-  </ion-list>
 
+<!--Division to display the captured photo -->
+  <div id="add"> 
+    <br>
+    <img src="{{imageSrc}}"> <br>
+    <!--Save Button -->
+    <button ion-button outline color="primary" id="btnUpload"(click)="upload()" *ngIf="imageSrc">Save !</button>
+  </div>
+
+<!--Division to display all the pics in the Gallery-->
+  <div id="loaded" style="display:block;" text-left class="vertical-align-content">
+    <ion-grid id="grid1">
+      <ion-row >
+        <ion-col col col-6 col-md-4 col-xl-3 *ngFor="let item of assetCollection" >
+          <p>{{item.name}}</p>
+          <img [src]=item.URL (click)="viewImage(item.id)"/>
+          <hr>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!--To view the folders to allow user to select the folder where he wants to add the pic-->
+  <div id="selectFolder" style="display:none">
+    <!--It is a button which allows to create a new folder to save the selected pic -->
+    <ion-item>
+      <button ion-button icon-only clear icon-start (click)="createFolder()">
+      <ion-icon name="add"> </ion-icon> &nbsp;&nbsp;&nbsp; Create New Folder</button>  
+    </ion-item>
+    <!--Already available folders -->
+    <ion-list  radio-group *ngFor="let item of albumFolders" >
+      <ion-item>
+        <ion-label>{{item.id}}</ion-label>
+        <ion-radio [value]=item.id (click)="selectedAlbum(item.id)"></ion-radio>  
+      </ion-item>
+      <hr>
+    </ion-list>
+  </div>
+
+  <!--Division to display the selected image on full view in an ion card -->
+  <div id="fullImage" *ngIf="fullImage">
+    <ion-card>
+      <button ion-button id= "btnClose" clear icon-only (click)="closeModal()">
+      <ion-icon  name="close"></ion-icon>
+      </button>
+      <img [src]=fullImage.URL />
+      
+      <!--Add the title and subtitles for the image -->
+      <div class="card-title">{{fullImage.name}}</div><br>
+      <div class="card-subtitle">LOCATION : My home <br> DATE : 12/03/2018 <br> TIME :6.30 pm</div>
+      
+      <!--Buttons in an grid to allow the user ro add the selected pic to album/lifestory-->
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button small outline color="dark" icon-start (click)="selectedLifestory(fullImage.URL,fullImage.name)">
+            <ion-icon  name="md-bookmark"></ion-icon>
+            Life-story  
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button small outline color="dark"  icon-start (click)="albumOption(fullImage.URL,fullImage.name)">
+            <ion-icon  name="md-arrow-dropdown-circle"></ion-icon>
+            Album  
+            </button>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</div>
+
+<!--Division to view the pics in a particular selected folder-->
+<div id="albumView" style="display:none">
+  <ion-grid id="grid3" style="display:none">
+    <ion-row >
+      <ion-col col col-6 col-md-4 col-xl-3 *ngFor="let item of albumPics" >
+        <p>{{item.name}}</p>
+        <img [src]=item.URL (click)="viewImage(item.id)"/>
+        <hr>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>
 
 </ion-content>

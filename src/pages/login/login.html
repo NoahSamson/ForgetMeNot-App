@@ -17,18 +17,38 @@
 <ion-content padding>
   <ion-list>
     <br/><br/>
-    <ion-item>
-      <ion-label stacked><b>Username: </b></ion-label>
-      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label stacked><b>Password: </b></ion-label>
-      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <button id="btnLogin"ion-button (click)= "login(user)">Login</button>
-    </ion-item>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" novalidate>
+      
+      <!-- Loogin Username -->
+      <ion-item>
+        <ion-label stacked><b>Username: </b></ion-label>
+        <ion-input type="text" [(ngModel)]="user.email" formControlName="eml" placeholder="123@gmail.com"></ion-input>
+      </ion-item>
+      <!-- Error message -->
+      <ion-item *ngIf="loginForm.controls['eml'].hasError('required')  && loginForm.controls['eml'].touched">
+        <p>*Email is required</p>
+      </ion-item>
+      <!-- Login Password -->
+      <ion-item>
+        <ion-label stacked><b>Password: </b></ion-label>
+        <ion-input type="password" [(ngModel)]="user.password" formControlName="pass" placeholder="*******"></ion-input>
+      </ion-item>
+      <!-- Error message -->
+      <ion-item *ngIf="loginForm.controls['pass'].hasError('required')  && loginForm.controls['pass'].touched">
+          <p>*Password is required</p>
+        </ion-item>
+
+      <!-- Login Button -->
+      <ion-item>
+        <button id="btnLogin"ion-button (click)= "login(user)">Login</button>
+      </ion-item>
+
+    </form>
+    <!-- Form End -->
+
+    <!-- Register Link -->
     <ion-item>
       <p align="center">Don't have an account?</p>
       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

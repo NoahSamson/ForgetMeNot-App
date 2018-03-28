@@ -4,33 +4,23 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
       Life Story
-    </ion-title>
-  </ion-navbar>
+    </ion-title>   
+  </ion-navbar> 
 </ion-header>
-
+ 
+<!-- Division to display the slieshow of the images-->
 <ion-content>
-  <ion-item  id="albumTitles">
-    My First Pet
-    02-01-2017  
-  </ion-item>
-  <img src="assets/imgs/puppy.jpg"/>
-  
-  <ion-item  id="albumTitles">
-    My Birthday
-    11-02-2016
-  </ion-item>
-  <img src="assets/imgs/birthday.jpg"/>
-  
-  <ion-item  id="albumTitles">
-    Exhibition
-    02-04-2018
-  </ion-item>
-  <div style="position:relative;overflow:hidden;padding-bottom:56.25%;height:0;" id="albumTitles">
-    
-    <iframe src="https://www.youtube.com/embed/lTLTs2ZA2JQ?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen width="560" height="315" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-  </div>
-</ion-content>
+  <ion-slides  *ngIf="lifeStoryPics && lifeStoryPics.length" autoplay="5000" loop="true" speed="3000">
+    <ion-slide *ngFor="let item of lifeStoryPics">
+        <h1>{{item.name}}</h1>
+      <img [src]=item.URL ion-long-press (onPressStart)="Remove(item.id)" />
+    </ion-slide>
+  </ion-slides>
+</ion-content> 
+
