@@ -76,9 +76,6 @@ export class RegisterPage {
   }
 
   signup(user: User) {
-    // this.authService.signup(user.email, user.password);
-    // user.email = user.password = '';
-    // this.test();
     this.authService.signupService(user).then(authData => {
       this.navCtrl.push(UserPage);
       let toast =this.toastCtrl.create({
