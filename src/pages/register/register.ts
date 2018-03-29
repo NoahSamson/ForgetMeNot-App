@@ -45,7 +45,7 @@ export class RegisterPage {
   constructor( private firebaseAuth: AngularFireAuth, private camera : Camera ,public navCtrl: NavController,
     alertCtrl: AlertController, public navParams: NavParams , public toastCtrl: ToastController,  
     public zone:NgZone,public loadingCtrl: LoadingController, firebasedb : AngularFireDatabase, public authService: AuthServiceProvider) {
-    this.myPhotosRef = firebase.storage().ref('/Photos/myphoto'); 
+    this.myPhotosRef = firebase.storage().ref(); 
     this.alertCtrl =  alertCtrl;
 
 
@@ -89,11 +89,7 @@ export class RegisterPage {
     }) ;
   }
   
-  radioCheckedPatient(){
-    document.getElementById("caretakerInfo").style.display="block";
-    this.display();
-  //document.getElementById("picUpload").style.display="block";
-  }
+  
 
  async takePhoto() {
       const options : CameraOptions = {
@@ -107,7 +103,7 @@ export class RegisterPage {
 
       const result = await this.camera.getPicture(options);
       const image = `data:images/jpeg;base64,${result}`;
-      const pictures = storage().ref('pictures/myPhoto');
+      const pictures = storage().ref();
       pictures.putString(image,'data_url');
   }
 
@@ -165,7 +161,7 @@ export class RegisterPage {
   }
 
   display(){
-    firebase.storage().ref('/Photos/myphoto').getDownloadURL().then((url) =>  {
+    firebase.storage().ref().getDownloadURL().then((url) =>  {
         this.zone.run(() => {
           this.imageSrc = url;
           console.log(url);
@@ -254,7 +250,12 @@ export class RegisterPage {
   radioCheckedCaretaker(){
     document.getElementById("caretakerInfo").style.display="none";
     validateRadio=true;
+  }
 
+  radioCheckedPatient(){
+    document.getElementById("caretakerInfo").style.display="block";
+  
+  
   }
 
   presentAlert() {
