@@ -7,6 +7,7 @@ import {OnInit} from '@angular/core';
 import {Title } from '@angular/platform-browser';
 import{UserPage}from '../user/user';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import moment from 'moment';
 /**
  * Generated class for the GalleryPage page.
  *
@@ -99,7 +100,7 @@ export class GalleryPage {
 
     //prompt to get the name of the file
     var sname = prompt("Please give name for file"); 
-    this.presentLoadingText();
+    this.presentLoadingDefault();
     imageRef.putString(this.imageSrc, firebase.storage.StringFormat.DATA_URL).then((snapshot: any)=> {
     // Do something here when the data is succesfully uploaded!
      this.url=snapshot.downloadURL;
@@ -116,6 +117,7 @@ export class GalleryPage {
       var dataTosave = {
         'URL' : savedPicture,
         'name' : name,
+        'date': moment(new Date().toISOString()).format('DD/MM/YYYY H:mm') ,
         'type' : this.type     
       };
       //add the element to the specified folder
@@ -283,6 +285,7 @@ loadData() {
      this.imageId=imageId;
       firebase.database().ref('users/'+this.userId+'/Assets/'+this.currentFolder+imageId+"/").on('value', (snapshot) => {
         this.fullImage = snapshot.val();
+        this.fullImage.id=snapshot.key;
        // console.log(this.fullImage.name);
         document.getElementById("btnCapture").style.display = "none";
         document.getElementById("btnBrowse").style.display = "none";
@@ -418,7 +421,27 @@ loadData() {
     }, 5000);
   }
 
+  //to rename the image name
+  Rename(id){
+    var fileName=prompt("Rename your File");
+    //data to be pushed
+    var updatedName={
+      name:fileName
+    }
+   var imageRef= firebase.database().ref('users/'+this.userId+'/Assets/'+this.currentFolder).child(id);
+   imageRef.once('value', function(snapshot){
+     //if the particular child doesnt exist
+      if(snapshot.val()===null){
+          this.showSuccesfulUploadAlert('Something went wrong','');
+      }
+      //if it exists update the data
+      else{
+        imageRef.update(updatedName);
+        
+      }
+   })
 
 
+  }
 }
  

@@ -6,35 +6,77 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>
-      Mom
+    <ion-title id="title">
     </ion-title>
   </ion-navbar>
-
-
 </ion-header>
+
+
 <ion-content>
+  <!--To display the profile pic of the member-->
+  <div style="text-align:center">
+    <button style="height:80px;" *ngIf="member.profPic == ''" ion-button clear outline color="dark" icon-bottom (click)="changePicture()">
+        <ion-icon ios="ios-contact" md="md-contact" id="icon"></ion-icon><br>
+      </button>
+      <button  style="height:200px; width:200px" *ngIf="member.profPic" ion-button clear icon-left (click)="changePicture()">
+        <ion-img id ="userPic" [src]=member.profPic></ion-img>
+      </button>
+  </div>
+
+       <!--To display the details of the member-->
     <ion-list >
-        <ion-item>
-            <img id ="userPic" src="assets/imgs/mom.jpg"/>
-        </ion-item>
-          <!-- <ion-item>
-            Name : {{member.firstName}}
-          </ion-item> -->
+        <hr>
           <ion-item>
-            Relationship :Mother
+            Name : {{member.firstName}} &nbsp; {{member.lastName}}
           </ion-item>
+          <ion-item>
+            Relationship : {{member.relationship}}
+          </ion-item>
+          <ion-item *ngIf="member.email">
+              Email : {{member.email}}
+            </ion-item>
+            <ion-item *ngIf="member.phoneNum">
+                Contact No : {{member.phoneNum}}
+              </ion-item>
+              <ion-item *ngIf="member.address">
+                  Address : {{member.address}}
+                </ion-item>
+              <ion-item *ngIf="member.DOB">
+                  Date of Birth : {{member.DOB}}
+              </ion-item>
           <hr>
         </ion-list>
-        <table >
-            <tr>
-              <td><img src="assets/imgs/mom1.jpg"/></td>
-              <td><img src="assets/imgs/mom2.jpg"/></td>
-            </tr>
-            <tr>
-              <td><img src="assets/imgs/mom3.jpg"/></td>
-            </tr>
-            
-          </table>
-  
+
+         <!--Button to add images to the member profile-->
+            <button ion-button small outline color="dark" id="btnBrowse" icon-start (click)="browsePhone()">
+                <ion-icon name="images"></ion-icon>
+               Add Images
+              </button>
+              
+              
+         <!--Confirmation to upload the image to the storage-->
+              <div id="add"> 
+                  <br>
+                  <img src="{{imageSrc}}"> <br>
+                  <!--Save Button -->
+                  <button ion-button outline color="primary" icon-start id="btnUpload"(click)="upload()" *ngIf="imageSrc">
+                      <ion-icon name="cloud-upload"></ion-icon>
+                    Save !</button>
+                    
+                  <!--to cancel the image to be uploaded-->
+                    <button ion-button outline color="primary" id="btnCancel" icon-start (click)="cancelUpload()" *ngIf="imageSrc">
+                        <ion-icon name="close"></ion-icon>
+                      Cancel !</button>
+                </div>
+              
+                
+         <!--Grid to view the images added to the member profile-->
+              <ion-grid>
+                <ion-row>
+                  <ion-col col col-6 col-md-4 col-xl-3 *ngFor="let item of memberPhotos">
+                      <img [src]=item.URL/>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+    
 </ion-content>

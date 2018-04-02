@@ -33,6 +33,8 @@ export class MembersPage {
   constructor( public loadingCtrl: LoadingController,public formBuilder: FormBuilder, private camera:Camera,public navCtrl: NavController, public navParams: NavParams, alertCtrl: AlertController, public authService: AuthServiceProvider) {
     this.userId=authService.getCurrentUser();
     this.alertCtrl = alertCtrl;
+
+    // To validate the member form
     this.memberForm = formBuilder.group({
       fName: ['', Validators.required],
       lName: ['', Validators.required],
@@ -43,6 +45,7 @@ export class MembersPage {
       DOB: [''],
      
     });
+
     this.loadMembers();
      
   }
@@ -52,18 +55,24 @@ export class MembersPage {
     
   }
 
+  // to view the div where the member form is present 
   viewMemberForm(){
     this.initializeMember();
     document.getElementById("allMembs").style.display="none";
     document.getElementById("MemberDetails").style.display="block";
     document.getElementById("add").style.display="none";
   }
-
+//to hide the member form which is to cancel adding the member
   cancel(){
     this.imageSrc="";
     this.memberForm.reset();
     this.viewAllMembers();
   }
+  /**
+   * This will initialize the attributes to null which
+   * will prevent the null pointer exception when the user doesnt fill the certain attributes on the form
+   */
+
   initializeMember(){
     this.member.firstName="";
     this.member.lastName="";
@@ -76,9 +85,17 @@ export class MembersPage {
     this.member.phoneNum="";
 
   }
+
+  /**
+   * This is to push the member to the database 
+   */
    async addMember(member:Members){
     this.presentLoadingDefault();
+    //only if the user uploads a pic it will be stored to the storage else 
+    //there is no need to call the uploadProfPic()
+    if(this.imageSrc){
     await this.uploadProfPic();
+    }
     var ref = firebase.database().ref("users/"+this.userId+"/Members/");
     return new Promise((resolve,reject)=> {
       var dataTosave = {
@@ -92,14 +109,18 @@ export class MembersPage {
       };
       //add the element to the specified folder
       ref.push(dataTosave);
-     this.loading.dismiss();
+
+      this.loading.dismiss();
       this.showSuccesfulUploadAlert();
+
+      //once uploaded reset the form and imagesrc
       this.imageSrc="";
       this.memberForm.reset();
       this.viewAllMembers();
    });  
   }
 
+  //This method is to display the member list and not the member form
   viewAllMembers(){
     document.getElementById('icon').style.display="block"
     document.getElementById('picButtons').style.display="block"
@@ -108,6 +129,7 @@ export class MembersPage {
     document.getElementById("add").style.display="block";
   }
 
+  //To load the members from the database 
   loadMembers(){
      //reference to the database 
   firebase.database().ref("users/"+this.userId+"/Members").on('value',(_data)=>{
@@ -165,26 +187,28 @@ export class MembersPage {
  
   }
 
+  //this is to upload the pic to the firebase storage 
  async uploadProfPic(){
-   
     let storageRef = firebase.storage().ref();
     // Create a timestamp as filename
     const filename = Math.floor(Date.now() / 1000);
     // Create a reference to 'images/todays-date.jpg'
-    const imageRef = await storageRef.child(`MembersProfilePic/${filename}.jpg`);
+    const imageRef = await storageRef.child(`Member_Photos/${filename}.jpg`);
     await imageRef.putString(this.imageSrc, firebase.storage.StringFormat.DATA_URL).then((snapshot: any)=> {
-      // Do something here when the data is succesfully uploaded!
+      // gets the download url of the image from the storage
        this.member.profPic= snapshot.downloadURL;
       }); 
   }
 
+  // cancel the current image if the user doesnt want upload it
   cancelUpload(){
     document.getElementById('icon').style.display="block"
     document.getElementById('picButtons').style.display="block"
     this.imageSrc="";
   }
-  showSuccesfulUploadAlert() {
-    
+
+  // a alert popup
+  showSuccesfulUploadAlert() {  
     let alert = this.alertCtrl.create({
       title:"Added Member" ,
       subTitle: "to your profile",
@@ -193,24 +217,24 @@ export class MembersPage {
     alert.present();
   }
 
-
+//To present the loading graphics
   presentLoadingDefault() {
    this.loading= this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Please wait...'
     });
     this.loading.present();
-    setTimeout(() => {
-     
-      //clears the dismiss after 5secs
-      
+    setTimeout(() => { 
     }, 5000);
   }
 
+  /**when the row of each member is clicked this method
+   * is invoked and it pushes to the each member page passing the selected memb id
+   */
   viewProfile(id){
-
-    this.member=this.memberList[id];
-    this.navCtrl.push(EachMemberPage);
+    this.navCtrl.push(EachMemberPage, {
+      memberID:id
+    });
   }
  
   

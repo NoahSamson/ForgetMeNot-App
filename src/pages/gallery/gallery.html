@@ -107,7 +107,7 @@
   </div>
 
   <!--Division to display the selected image on full view in an ion card -->
-  <div id="fullImage" *ngIf="fullImage">
+  <div id="fullImage" *ngIf="fullImage" >
     <ion-card>
       <button ion-button id= "btnClose" clear icon-only (click)="closeModal()">
       <ion-icon  name="close"></ion-icon>
@@ -116,7 +116,7 @@
       <br>
       <!--Add the title and subtitles for the image -->
       <div class="card-title">{{fullImage.name}}</div><br>
-      <div class="card-subtitle">LOCATION : My home <br> DATE : 12/03/2018 <br> TIME :6.30 pm</div>
+      <div class="card-subtitle">Date: <br> {{fullImage.date}} </div>
       
       <!--Buttons in an grid to allow the user ro add the selected pic to album/lifestory-->
       <ion-grid>
@@ -139,6 +139,12 @@
             Delete
             </button>
           </ion-col>
+          <ion-col>
+              <button ion-button small outline color="dark"  icon-start (click)="Rename(fullImage.id)">
+              <ion-icon  name="paper"></ion-icon>
+              Rename
+              </button>
+            </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
@@ -150,7 +156,7 @@
     <ion-row >
       <ion-col col col-6 col-md-4 col-xl-3 *ngFor="let item of albumPics" >
         <p class="imageName">{{item.name}}</p>
-        <img [src]=item.URL (click)="viewImage(item.id)"/>
+        <img [src]=item.URL (click)="viewImage(imageId)"/>
         <hr>
       </ion-col>
     </ion-row>

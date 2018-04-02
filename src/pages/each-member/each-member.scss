@@ -1,5 +1,9 @@
 page-each-member {
-
+    #title{
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+    }
     img{
         max-width: 95%;
     }
@@ -11,5 +15,11 @@ page-each-member {
         text-shadow: 2px 2px 2px black;
     
 
+    }
+    #icon{
+        font-size: 55px;
+    }
+    #picButtons{
+        width:50px;
     }
 }
