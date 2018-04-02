@@ -16,7 +16,7 @@
  
 <!-- Division to display the slieshow of the images-->
 <ion-content>
-  <ion-slides  *ngIf="lifeStoryPics && lifeStoryPics.length" autoplay="5000" loop="true" speed="3000">
+  <ion-slides  *ngIf="lifeStoryPics && lifeStoryPics.length" autoplay="2500" loop="true" speed="3000">
     <ion-slide *ngFor="let item of lifeStoryPics">
         <h1>{{item.name}}</h1>
       <img [src]=item.URL ion-long-press (onPressStart)="Remove(item.id)" />

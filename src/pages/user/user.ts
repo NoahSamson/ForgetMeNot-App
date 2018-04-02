@@ -23,7 +23,7 @@ import { LoginPage } from '../login/login';
 })
 export class UserPage {
 
-  currentuser: any;
+  public currentuser: any;
   public user = {} as User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public app: App) {
@@ -43,6 +43,7 @@ export class UserPage {
     console.log(this.user);
 
   }
+ 
 
   logout() {
     this.authService.logout().then(() => {

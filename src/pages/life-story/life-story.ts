@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController, LoadingController,Loading } from 'ionic-angular';
 import firebase from 'firebase';
-
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 /**
  * Generated class for the LifeStoryPage page.
  *
@@ -23,8 +23,11 @@ export class LifeStoryPage {
   loading:Loading;
   lifeStoryPics:any;
   alertCtrl: AlertController;
-  constructor( public loadingCtrl: LoadingController,public navCtrl: NavController, public navParams: NavParams,alertCtrl: AlertController ) {
+  userId:any;
+  
+  constructor( public loadingCtrl: LoadingController,public authService: AuthServiceProvider,public navCtrl: NavController, public navParams: NavParams,alertCtrl: AlertController ) {
     this.alertCtrl = alertCtrl;
+    this.userId=authService.getCurrentUser();
   }
   // on view of the page
   ionViewDidLoad() {
@@ -36,7 +39,7 @@ export class LifeStoryPage {
  
   async loadData() {
     //reference to the database 
-    firebase.database().ref('Assets/Life-story/').on('value',(_data)=>{
+    firebase.database().ref('users/'+this.userId+'/Assets/Life-story/').on('value',(_data)=>{
       var result = [];
         // for each child node
       _data.forEach( (_childdData) => {
@@ -81,7 +84,7 @@ export class LifeStoryPage {
       console.log('Yes/No', data);
       if(data==true){
         // if the response is true removes the image from the lifestory
-        firebase.database().ref('LifeStory/'+ deleteKey).remove();
+        firebase.database().ref('Assets/LifeStory/'+ deleteKey).remove();
         //this.loadData();
         this.presentLoadingDefault();
       }

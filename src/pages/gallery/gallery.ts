@@ -5,6 +5,8 @@ import {storage} from 'firebase';
 import firebase from 'firebase';
 import {OnInit} from '@angular/core';
 import {Title } from '@angular/platform-browser';
+import{UserPage}from '../user/user';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 /**
  * Generated class for the GalleryPage page.
  *
@@ -32,10 +34,14 @@ export class GalleryPage {
   albumPics:any;
   albumName:any;
   fullImage:any;
-  currentFolder:any;
+  currentFolder:any
+  imageId:any;
+  userId:any;
+  type:any;
 
   constructor(private camera:Camera,public navCtrl: NavController, public navParams: NavParams,
-    public loadingCtrl: LoadingController, alertCtrl: AlertController ) {
+    public loadingCtrl: LoadingController, alertCtrl: AlertController, public authService: AuthServiceProvider ) {
+    this.userId=authService.getCurrentUser();
     this.alertCtrl = alertCtrl; 
   }
 
@@ -57,7 +63,7 @@ export class GalleryPage {
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation : true
     };
-
+    this.type="image"
     this.camera.getPicture(cameraOptions).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
@@ -66,6 +72,22 @@ export class GalleryPage {
      console.log(err);
     });
   }
+
+  browsePhone(){
+    this.camera.getPicture({
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      quality: 100,
+      encodingType: this.camera.EncodingType.PNG,
+    }).then(imageData => {
+      this.imageSrc = 'data:image/jpeg;base64,' + imageData;
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
+    this.type="video"
+  }
+
+ 
 
   upload() {
     let storageRef = firebase.storage().ref();
@@ -78,11 +100,10 @@ export class GalleryPage {
     //prompt to get the name of the file
     var sname = prompt("Please give name for file"); 
     this.presentLoadingText();
-
     imageRef.putString(this.imageSrc, firebase.storage.StringFormat.DATA_URL).then((snapshot: any)=> {
     // Do something here when the data is succesfully uploaded!
      this.url=snapshot.downloadURL;
-     this.uploadDb(this.url,sname,"Assets/Gallery/");
+     this.uploadDb(this.url,sname,"users/"+this.userId+"/Assets/Gallery/");
       this.showSuccesfulUploadAlert("Uploaded!","Picture is uploaded");
      this.loadData();
     });   
@@ -94,17 +115,22 @@ export class GalleryPage {
     return new Promise((resolve,reject)=> {
       var dataTosave = {
         'URL' : savedPicture,
-        'name' : name      
+        'name' : name,
+        'type' : this.type     
       };
       //add the element to the specified folder
       ref.push(dataTosave);
    });  
 }
 
+cancelUpload(){
+  this.imageSrc="";
+}
+
 // to retrieve the image from the firebase
 loadData() {
   //reference to the database 
-  firebase.database().ref('Assets/Gallery').on('value',(_data)=>{
+  firebase.database().ref('users/'+this.userId+'/Assets/Gallery').on('value',(_data)=>{
     var result = [];
       // for each child node
     _data.forEach( (_childdData) => {
@@ -125,7 +151,7 @@ loadData() {
 
 // alert to show a successful note after the picture is uploaded
   showSuccesfulUploadAlert(Title,subTitle) {
-    this.loading.dismiss();
+    
     let alert = this.alertCtrl.create({
       title:Title ,
       subTitle: subTitle,
@@ -142,7 +168,7 @@ loadData() {
       spinner: 'bubbles',
       content: 'Uploading image'
     });
-    this.loading.present(); 
+    this.loading.dismiss(); 
   }
 
   //To get some information from the user
@@ -171,7 +197,7 @@ loadData() {
 
   //loads the album folders from firebase to albumFolders global variable
  loadAlbums(){
-  firebase.database().ref('Assets/Albums').on('value',(_data)=>{
+  firebase.database().ref('users/'+this.userId+'/Assets/Albums').on('value',(_data)=>{
     var result = [];
     _data.forEach( (_childdData) => {
       
@@ -188,7 +214,7 @@ loadData() {
 
  //Load the pics in a specific album folder to albumPics global variable
  loadAlbumFolder(albumName){
-  firebase.database().ref('Assets/Albums/'+albumName).on('value',(_data)=>{
+  firebase.database().ref('users/'+this.userId+'/Assets/Albums/'+albumName).on('value',(_data)=>{
     var result = [];
     _data.forEach( (_childdData) => {
       
@@ -224,7 +250,7 @@ loadData() {
       if(albumName!=null){
         this.currentFolder=albumName;
         //sets the current folder path to the album path of the firebase
-        var albumPath='Assets/Albums/'+albumName;
+        var albumPath='users/'+this.userId+'/Assets/Albums/'+albumName;
         this.uploadDb(this.url,this.name,albumPath);
         this.openFolder(albumName);
       }
@@ -234,8 +260,7 @@ loadData() {
    selectedLifestory(imageURL,imageName){
     this.url=imageURL;
     this.name=imageName;
-    this.uploadDb(this.url,this.name,"Assets/Life-story");
-    document.getElementById("grid1").style.display = "block";
+    this.uploadDb(this.url,this.name,"users/"+this.userId+"/Assets/Life-story");
     this.showSuccesfulUploadAlert("Added","to Life-story")
    }
 
@@ -248,16 +273,19 @@ loadData() {
     document.getElementById("btnGallery").style.display = "block";
     document.getElementById("albums").style.display = "block";
     document.getElementById("btnCapture").style.display = "none";
+    document.getElementById("btnBrowse").style.display = "none";
     document.getElementById("grid3").style.display = "none";
     document.getElementById("grid2").style.display = "block";    
    }
 
    //to pop the selected image on a card to display it in fullview
    viewImage(imageId){
-      firebase.database().ref('Assets/'+this.currentFolder+imageId+"/").on('value', (snapshot) => {
+     this.imageId=imageId;
+      firebase.database().ref('users/'+this.userId+'/Assets/'+this.currentFolder+imageId+"/").on('value', (snapshot) => {
         this.fullImage = snapshot.val();
-        console.log(this.fullImage.name);
+       // console.log(this.fullImage.name);
         document.getElementById("btnCapture").style.display = "none";
+        document.getElementById("btnBrowse").style.display = "none";
         document.getElementById("btnAlbum").style.display = "none";
         document.getElementById("grid1").style.display = "none";
         document.getElementById("grid2").style.display = "none";
@@ -268,6 +296,7 @@ loadData() {
 
 //when the user taps on an album to view the pics in it
   openFolder(albumName){
+    this.albumName=albumName;
     document.getElementById("title").innerHTML=albumName;
     this.loadAlbumFolder(albumName);
     this.currentFolder="Albums/"+albumName+"/";
@@ -280,6 +309,7 @@ loadData() {
     document.getElementById("grid2").style.display = "none";
     document.getElementById("grid3").style.display = "block";
     document.getElementById("btnCapture").style.display = "none";
+    document.getElementById("btnBrowse").style.display = "none";
     document.getElementById("albumView").style.display = "block";
   }
 
@@ -287,6 +317,7 @@ loadData() {
    closeModal(){
       document.getElementById("btnGallery").style.display = "block";
       document.getElementById("btnCapture").style.display = "block";
+      document.getElementById("btnBrowse").style.display = "block";
       document.getElementById("btnAlbum").style.display = "block";
       console.log(this.currentFolder);
       if(this.currentFolder=="Gallery/"){
@@ -302,6 +333,7 @@ loadData() {
       this.currentFolder="Gallery/";
       document.getElementById("btnGallery").style.display = "block";
       document.getElementById("btnCapture").style.display = "block";
+      document.getElementById("btnBrowse").style.display = "block";
       document.getElementById("btnAlbum").style.display = "block";
       document.getElementById("title").innerHTML="Gallery"
       document.getElementById("grid1").style.display = "block";
@@ -316,10 +348,77 @@ loadData() {
       this.currentFolder="Albums"+albumName+"/";
       var albumName=prompt("AlbumName")
       if(albumName!=null){
-      var albumPath="Assets/Albums/"+albumName+"/";
+        this.albumName=albumName;
+      var albumPath="users/"+this.userId+"/Assets/Albums/"+albumName+"/";
       this.uploadDb(this.url,this.name,albumPath);
       this.openFolder(albumName);
       }
    }
+
+   //Delete a Picture
+   Delete(){
+     //creates an alert and ensures whether to delete
+    let alert = this.alertCtrl.create({
+      title: 'Remove',
+      subTitle: '',
+      buttons: [
+        {
+            text: 'Okay',
+            handler: () => {
+                alert.dismiss(true);
+                return false;
+            }
+        }, {
+            text: 'Cancel',
+            handler: () => {
+                alert.dismiss(false);
+                return false;
+            }
+        }
+    ]
+    });
+    alert.present();
+    alert.onDidDismiss((data) => {
+      console.log('Yes/No', data);
+      //if user click yes
+      if(data==true){
+        //clears the image which is full viewed
+        this.fullImage="";
+        // if the response is true removes the image from the lifestory
+       firebase.database().ref('users/'+this.userId+'/Assets/'+this.currentFolder+ this.imageId).remove();
+       //call to refresh the page
+       this.presentLoadingDefault();
+     
+      }
+});
+    
+  }
+
+  presentLoadingDefault() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Please wait...'
+    });
+    this.loadData();
+    loading.present();
+    setTimeout(() => {
+      //checks for the current folder if it is gallery
+      //loads the data in the gallery and sets the grid 1 to visible to display the loaded pics
+      if (this.currentFolder=="Gallery/"){
+      this.loadData();
+      document.getElementById("grid1").style.display = "block";
+      }
+      //else loads the pics in the album and views it in grid 3
+      else{ 
+      document.getElementById("grid3").style.display = "block"; 
+      this.loadAlbumFolder(this.albumName);
+      }
+      //clears the dismiss after 5secs
+      loading.dismiss();
+    }, 5000);
+  }
+
+
+
 }
  

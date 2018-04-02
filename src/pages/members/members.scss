@@ -1,3 +1,19 @@
 page-members {
+    ion-header{
+        color: black;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 2px black;
+    }
+    #MemberDetails{
+        display: none;
+        }
+        #icon{
+            font-size: 75px;
+           position: relative;
+           left:80px
+        }
 
+        
 }

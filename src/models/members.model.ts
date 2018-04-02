@@ -6,6 +6,6 @@ export interface Members{
     phoneNum: string;
     DOB: Date;
     relationship: string;
-    memberPics: string[];
-    role: string;
+    profPic:string;
+    faceID:string;
 }

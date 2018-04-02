@@ -15,12 +15,12 @@
 <ion-content>
   
   <!--To display the buttons to navigate-->
-  <ion-grid>
+  <ion-grid >
     <ion-row>
-      <ion-col col col-5 col-md-5 col-xl-5>
+      <ion-col col col-7 col-md-7 col-xl-7>
         <!--Gallery Button -->
         <button ion-button small outline color="dark"  id="btnGallery" icon-start (click)="goToGallery()">
-            <ion-icon  name="md-photos"></ion-icon>
+            <ion-icon  name="images"></ion-icon>
             Gallery  
         </button>
       </ion-col>
@@ -32,12 +32,20 @@
               Albums </button>  
       </ion-col>
 
-      <ion-col>
+      <ion-col col-7 col-md-7 col-xl-7>
             <!--Capture Button -->
               <button ion-button small outline color="dark" id="btnCapture" icon-start (click)="capture()">
-                  <ion-icon name="add"></ion-icon>
+                  <ion-icon name="camera"></ion-icon>
                   Capture </button>
       </ion-col>
+
+      <ion-col>
+        <!--Browse Button to upload pics from phone -->
+          <button ion-button small outline color="dark" id="btnBrowse" icon-start (click)="browsePhone()">
+              <ion-icon name="folder-open"></ion-icon>
+              Browse </button>  
+      </ion-col>
+
     </ion-row>
     <hr>
   </ion-grid>
@@ -61,7 +69,12 @@
     <br>
     <img src="{{imageSrc}}"> <br>
     <!--Save Button -->
-    <button ion-button outline color="primary" id="btnUpload"(click)="upload()" *ngIf="imageSrc">Save !</button>
+    <button ion-button outline color="primary" icon-start id="btnUpload"(click)="upload()" *ngIf="imageSrc">
+        <ion-icon name="cloud-upload"></ion-icon>
+      Save !</button>
+      <button ion-button outline color="primary" id="btnCancel" icon-start (click)="cancelUpload()" *ngIf="imageSrc">
+          <ion-icon name="close"></ion-icon>
+        Cancel !</button>
   </div>
 
 <!--Division to display all the pics in the Gallery-->
@@ -69,8 +82,8 @@
     <ion-grid id="grid1">
       <ion-row >
         <ion-col col col-6 col-md-4 col-xl-3 *ngFor="let item of assetCollection" >
-          <p>{{item.name}}</p>
-          <img [src]=item.URL (click)="viewImage(item.id)"/>
+          <p class="imageName">{{item.name}}</p>
+          <img id= "img" [src]=item.URL (click)="viewImage(item.id)"/>
           <hr>
         </ion-col>
       </ion-row>
@@ -90,7 +103,6 @@
         <ion-label>{{item.id}}</ion-label>
         <ion-radio [value]=item.id (click)="selectedAlbum(item.id)"></ion-radio>  
       </ion-item>
-      <hr>
     </ion-list>
   </div>
 
@@ -101,7 +113,7 @@
       <ion-icon  name="close"></ion-icon>
       </button>
       <img [src]=fullImage.URL />
-      
+      <br>
       <!--Add the title and subtitles for the image -->
       <div class="card-title">{{fullImage.name}}</div><br>
       <div class="card-subtitle">LOCATION : My home <br> DATE : 12/03/2018 <br> TIME :6.30 pm</div>
@@ -121,6 +133,12 @@
             Album  
             </button>
           </ion-col>
+          <ion-col>
+            <button ion-button small outline color="dark"  icon-start (click)="Delete()">
+            <ion-icon  name="trash"></ion-icon>
+            Delete
+            </button>
+          </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
@@ -131,7 +149,7 @@
   <ion-grid id="grid3" style="display:none">
     <ion-row >
       <ion-col col col-6 col-md-4 col-xl-3 *ngFor="let item of albumPics" >
-        <p>{{item.name}}</p>
+        <p class="imageName">{{item.name}}</p>
         <img [src]=item.URL (click)="viewImage(item.id)"/>
         <hr>
       </ion-col>

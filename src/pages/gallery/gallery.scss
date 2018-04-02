@@ -1,7 +1,8 @@
 page-gallery {
-    img{
+    #img{
 
-        max-width: 90%
+        height: 50;
+        width:50;
      }
      .vertical-align-content 
     {
@@ -21,19 +22,13 @@ page-gallery {
       }
     
      .card-title{
-        font-style: oblique;
-        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-size: 2.0em;
-        width: 100%;
-        font-weight:30px;
-        color: #387EC4
+        color: #387EC4; font-family: 'Raleway',cursive; 
+        font-size: 28px; font-weight: 400; line-height: 36px; margin: 0 0 4px; text-align: center;
+        text-decoration-line: underline;
       }
     
       .card-subtitle {
-        font-size: 1.0em;
-       
-        width: 100%;
-        color:black;
+        color: black; font-family: 'Raleway',cursive; font-size: 18px; font-weight: 500; line-height: 32px; margin: 0 0 4px;
       }
       #btnClose{
           position: relative;
@@ -46,5 +41,18 @@ page-gallery {
       .text-on-bottom > .button-inner {
         flex-direction: column;
       }
+     .imageName{
+        color:black; font-family:'Julius Sans One', cursive; font-size: 18px; font-weight: 400;  margin: 0 0 2px; text-align: center;
+     }
+
+     ion-header{
+        color: black;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 2px black;
     
+
+    }
+
     }

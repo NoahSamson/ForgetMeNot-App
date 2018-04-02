@@ -64,14 +64,6 @@ export class RegisterPage {
   test(){
     document.getElementById("regForm").style.display="none";
     document.getElementById("otherDetails").style.display="block";
-
-    // if(validateRadio){
-    
-    // }
-    // else{
-    //     this.presentAlert();
-    // }
-     
      
   }
 
@@ -254,7 +246,6 @@ export class RegisterPage {
 
   radioCheckedPatient(){
     document.getElementById("caretakerInfo").style.display="block";
-  
   
   }
 
