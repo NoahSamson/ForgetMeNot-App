@@ -15,19 +15,20 @@
 
 
 <ion-content padding>
+  
    
   <div id="regForm">
     <ion-list>
     <ion-item>
-      <ion-label>E-mail address: </ion-label>
+      <ion-label stacked>E-mail address: </ion-label>
       <ion-input type="email" [(ngModel)] = "user.email" name="email" required="required"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Password: </ion-label>
+      <ion-label stacked>Password: </ion-label>
       <ion-input type="password" [(ngModel)] = "user.password" name="password" required="required"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Confirm Password: </ion-label>
+      <ion-label stacked>Confirm Password: </ion-label>
       <ion-input type="password"></ion-input>
     </ion-item>
     <button ion-button id="btnRegister"ion-button (click)="test()">Next</button>
@@ -69,7 +70,7 @@
           </ion-item>
             
              <div id="radioChoose">
-              <ion-list radio-group>
+              <ion-list radio-group [(ngModel)]="user.role">
              <ion-list-header id="listHeader">
                Role:
              </ion-list-header>
@@ -93,7 +94,7 @@
                     </ion-list-header>
                   <ion-item>
                     <ion-label>Caretaker's mail address:</ion-label> 
-                    <ion-input type="text"></ion-input>
+                    <ion-input type="text" [(ngModel)]="user.caretaker" name="caretaker"></ion-input>
                   </ion-item>
                   <ion-item>
                       <ion-label>Verification Code:</ion-label> 

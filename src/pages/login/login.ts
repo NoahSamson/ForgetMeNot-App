@@ -1,6 +1,6 @@
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
 //Forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -30,16 +30,19 @@ import { TabsPage } from './../tabs/tabs';
 
 
 export class LoginPage {
+  alertCtrl: AlertController;
   // User Object
   user = {} as User;
   //Form Group
   public loginForm: FormGroup;
 
-  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public formBuilder: FormBuilder) {
+  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public formBuilder: FormBuilder, alertCtrl: AlertController) {
     this.loginForm = formBuilder.group({
       eml: ['', Validators.required],
       pass: ['', Validators.required]
     });
+
+    this.alertCtrl = alertCtrl; 
   }
 
   ionViewDidLoad() {
@@ -66,7 +69,12 @@ export class LoginPage {
         user.email = user.password = '';
         
       }).catch(err => {
-        
+        let alert = this.alertCtrl.create({
+          title: 'invalid' ,
+          subTitle: 'invalid username or password',
+          buttons: ['OK']
+        });
+        alert.present();
       });
       
 

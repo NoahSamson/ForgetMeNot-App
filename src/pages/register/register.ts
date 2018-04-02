@@ -52,44 +52,11 @@ export class RegisterPage {
    
   }
   
-
- 
-
-  
-
+  //Gets called when the page loads
   ionViewDidLoad() {
+    //shows that the page was loaded
     console.log('ionViewDidLoad RegisterPage');
   }
-
-  test(){
-    document.getElementById("regForm").style.display="none";
-    document.getElementById("otherDetails").style.display="block";
-
-    // if(validateRadio){
-    
-    // }
-    // else{
-    //     this.presentAlert();
-    // }
-     
-     
-  }
-
-  signup(user: User) {
-    this.authService.signupService(user).then(authData => {
-      this.navCtrl.push(UserPage);
-      let toast =this.toastCtrl.create({
-        message: 'Welcome '+ user.firstName,
-        duration: 3000,
-        position: 'bottom'
-      });
-      toast.present();
-      user.email = user.password = '';
-      
-    }) ;
-  }
-  
-  
 
  async takePhoto() {
       const options : CameraOptions = {
@@ -247,17 +214,32 @@ export class RegisterPage {
 
   // }
 
-  radioCheckedCaretaker(){
-    document.getElementById("caretakerInfo").style.display="none";
-    validateRadio=true;
-  }
 
-  radioCheckedPatient(){
-    document.getElementById("caretakerInfo").style.display="block";
-  
-  
-  }
+  /**
+   * Register the user
+   */
 
+
+    //Switch between the email and password part and the user details part when registering
+    test(){
+      document.getElementById("regForm").style.display="none";
+      document.getElementById("otherDetails").style.display="block";
+       
+    }
+    
+    //Gets called if the user selected caretaker 
+    radioCheckedCaretaker(){
+      document.getElementById("caretakerInfo").style.display="none";
+      validateRadio=true;
+    }
+
+    //Gets called if the user selected Patient
+    radioCheckedPatient(){
+      document.getElementById("caretakerInfo").style.display="block";
+      
+    }
+
+  //to make sure the user select either patient or caretaker. And show a warning
   presentAlert() {
     let alert = this.alertCtrl.create({
       title: 'Please select a role',
@@ -266,4 +248,21 @@ export class RegisterPage {
     });
     alert.present();
   }
+
+  //Register the user using the user object populated with details from the user
+  signup(user: User) {
+    this.authService.signupService(user).then(authData => {
+      this.navCtrl.push(UserPage);
+      let toast =this.toastCtrl.create({
+        message: 'Welcome '+ user.firstName,
+        duration: 3000,
+        position: 'bottom'
+      });
+      toast.present();
+      user.email = user.password = '';
+      
+    }) ;
+  }
+
+
 }

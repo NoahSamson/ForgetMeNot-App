@@ -42,7 +42,7 @@
 
       <!-- Login Button -->
       <ion-item>
-        <button id="btnLogin"ion-button (click)= "login(user)">Login</button>
+        <button id="btnLogin"ion-button type="submit" [disabled]="!loginForm.valid"  (click)= "login(user)" >Login</button>
       </ion-item>
 
     </form>
