@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events} from 'ionic-angular';
 import{MembersPage} from '../members/members'
+import { Members } from '../../models/members.model';
+
 
 /**
  * Generated class for the EachMemberPage page.
@@ -15,19 +17,17 @@ import{MembersPage} from '../members/members'
   templateUrl: 'each-member.html',
 })
 export class EachMemberPage {
-
-  constructor(private events: Events,public navCtrl: NavController, public navParams: NavParams) {
-    this.events.subscribe('hello',(memberId)=>{
-     this.viewMember();
-     // this.viewMember(memberId);
-    })
+member={} as Members;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+   
+  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EachMemberPage');
   }
-viewMember(){
-  alert('hi');
-}
+
+
+
  
 }

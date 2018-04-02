@@ -60,12 +60,18 @@
             </ion-item>           
 
             <ion-item>
-              <ion-icon ios="ios-contact" md="md-contact" id="icon"></ion-icon>
-              <br>
-              <button ion-button (click)="capture()">Upload Picture</button><br>
-              <button ion-button (click)="upload()" *ngIf="imageSrc">Upload to Firebase!</button>
-          <br>
-              <img src="{{imageSrc}}"> 
+              <ion-icon  ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+                <div id="profPic" *ngIf="imageSrc">
+                <img   src="{{imageSrc}}"> <br>
+                <button ion-button outline color="dark" id="btnCancel" icon-start (click)="cancelUpload()">
+                        <ion-icon name="close"></ion-icon>
+                      Cancel !</button>
+                </div>
+                <br>
+                <div id="picButtons">
+                <button  ion-button outline color="dark" (click)="capture()">Take Picture</button>&nbsp;&nbsp;
+                <button  ion-button outline color="dark" (click)="browsePhone()">Upload Picture</button>
+            </div>
               
           </ion-item>
             

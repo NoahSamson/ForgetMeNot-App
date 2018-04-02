@@ -7,6 +7,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {EachMemberPage} from '../each-member/each-member';
+
 /**
  * Generated class for the MembersPage page.
  *
@@ -27,8 +28,9 @@ export class MembersPage {
   imageSrc:any;
   memberList:any;
   memberForm: FormGroup;
+  loading:Loading;
 
-  constructor(private loading:Loading, public loadingCtrl: LoadingController,public formBuilder: FormBuilder, private camera:Camera,public navCtrl: NavController, public navParams: NavParams, alertCtrl: AlertController, public authService: AuthServiceProvider) {
+  constructor( public loadingCtrl: LoadingController,public formBuilder: FormBuilder, private camera:Camera,public navCtrl: NavController, public navParams: NavParams, alertCtrl: AlertController, public authService: AuthServiceProvider) {
     this.userId=authService.getCurrentUser();
     this.alertCtrl = alertCtrl;
     this.memberForm = formBuilder.group({
@@ -74,9 +76,9 @@ export class MembersPage {
     this.member.phoneNum="";
 
   }
-   addMember(member:Members){
-    this.loading.present();
-     this.uploadProfPic();
+   async addMember(member:Members){
+    this.presentLoadingDefault();
+    await this.uploadProfPic();
     var ref = firebase.database().ref("users/"+this.userId+"/Members/");
     return new Promise((resolve,reject)=> {
       var dataTosave = {
@@ -90,7 +92,7 @@ export class MembersPage {
       };
       //add the element to the specified folder
       ref.push(dataTosave);
-      this.loading.dismiss();
+     this.loading.dismiss();
       this.showSuccesfulUploadAlert();
       this.imageSrc="";
       this.memberForm.reset();
@@ -163,13 +165,14 @@ export class MembersPage {
  
   }
 
-  uploadProfPic(){
+ async uploadProfPic(){
+   
     let storageRef = firebase.storage().ref();
     // Create a timestamp as filename
     const filename = Math.floor(Date.now() / 1000);
     // Create a reference to 'images/todays-date.jpg'
-    const imageRef = storageRef.child(`MembersProfilePic/${filename}.jpg`);
-    imageRef.putString(this.imageSrc, firebase.storage.StringFormat.DATA_URL).then((snapshot: any)=> {
+    const imageRef = await storageRef.child(`MembersProfilePic/${filename}.jpg`);
+    await imageRef.putString(this.imageSrc, firebase.storage.StringFormat.DATA_URL).then((snapshot: any)=> {
       // Do something here when the data is succesfully uploaded!
        this.member.profPic= snapshot.downloadURL;
       }); 
@@ -192,24 +195,23 @@ export class MembersPage {
 
 
   presentLoadingDefault() {
-    this.loadingCtrl.create({
+   this.loading= this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Please wait...'
     });
-    this.uploadProfPic();
+    this.loading.present();
     setTimeout(() => {
      
       //clears the dismiss after 5secs
-  
+      
     }, 5000);
   }
 
   viewProfile(id){
 
-    alert('invoked')
-   // this.navCtrl.push(EachMemberPage);
-  
-
+    this.member=this.memberList[id];
+    this.navCtrl.push(EachMemberPage);
   }
  
+  
 }
