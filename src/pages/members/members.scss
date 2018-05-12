@@ -4,10 +4,22 @@ page-members {
         font-size: 20px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        text-shadow: 2px 2px 2px black;
+       // text-shadow: 2px 2px 2px black;
+    }
+    .info{
+        font-size: 14px;
+        text-align: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-weight: bold;
     }
     #MemberDetails{
         display: none;
+        }
+        img{
+            height:100px;
+            width:100px;
+             -webkit-border-radius: 50%;
+            border-radius: 50%;
         }
         #icon{
             font-size: 75px;
@@ -15,9 +27,11 @@ page-members {
            left:80px
         }
         #icon2{
-            font-size: 75px;
+            -webkit-border-radius: 50%;
+        border-radius: 50%;
+            font-size: 100px;
             position: relative;
             top:30px;
-            left:20px;
+            left:10px;
         }
 }

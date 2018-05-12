@@ -14,9 +14,10 @@ export interface User{
 
     //Specific for patient users
     caretaker: string;
+    caretakerNum:string;
     member: Members[];
-    curLocLat: number;
-    curLocLong: number;
+    cenLocLat: number;
+    cenLocLong: number;
     radius: number;
     assets: Assets;
     center: any;

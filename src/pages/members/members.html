@@ -4,9 +4,18 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<!-- HCI Issues
+
+    Unable to edit the member profile after creating it
+-->
+
+<!-- Security Issues
+   The member details will be only visible for the particular user who added the member
+-->
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="mycolor">
     <ion-title>Members</ion-title>
   </ion-navbar>
 
@@ -15,7 +24,7 @@
 
 <ion-content padding>
 <!-- button to add new member-->
-    <button ion-button clear icon-left id="add" (click)="viewMemberForm()">
+    <button ion-button clear color="mycolor" icon-left id="add" (click)="viewMemberForm()">
         <ion-icon name="add-circle"></ion-icon>
         Add Member 
       </button>
@@ -23,14 +32,18 @@
       <!--grid view to display all the members in a list view-->
     <ion-grid id="allMembs" >
         <!-- Clicking on the row will redirect to the each memberpage-->
-      <ion-row *ngFor="let item of memberList" (click)="viewProfile(item.id)" >
-          <ion-col  col col-6 col-md-3 col-xl-2>
-                <ion-icon outline color="dark" *ngIf="item.profPic == ''" ios="ios-contact" md="md-contact" id="icon2"></ion-icon><br>
-               <img *ngIf="item.profPic" [src] =item.profPic alt="Profile Picture">
+         <!-- Long pressing on the row will allow to delete a member-->
+      <ion-row *ngFor="let item of memberList" ion-long-press (onPressStart)="Remove(item.id)" (click)="viewProfile(item.id)" >
+          <ion-col  col col-5 col-md-3 col-xl-2>
+               <!--If the meber hasnt added a prof pic shows a contact icon-->
+                <ion-icon outline color="grey" *ngIf="item.profPic == ''" ios="ios-contact" md="md-contact" id="icon2"></ion-icon><br>
+                <!-- If the memb has a prf pic displays it on a img src tag-->
+                <img *ngIf="item.profPic" [src] =item.profPic alt="Profile Picture">
           </ion-col>
           <ion-col>
-                <ion-label floating><b> {{item.firstName}}&nbsp;&nbsp;{{item.lastName}} </b></ion-label>
-                <ion-label floating><b> {{item.relationship}} </b></ion-label>
+               <!-- To view the member Details-->
+                <ion-label class="info"floating><b> {{item.firstName}}&nbsp;&nbsp;{{item.lastName}} </b></ion-label>
+                <ion-label class="info"floating><b> {{item.relationship}} </b></ion-label>
                 <hr>
         </ion-col>
       </ion-row>   
@@ -44,6 +57,7 @@
                 <ion-input type="text" [(ngModel)]="member.firstName" formControlName="fName"  ></ion-input>
         </ion-item>
 
+         <!--If this first name field is touched and not filled displays a text saying the field is mandatory-->
         <ion-item *ngIf="memberForm.controls['fName'].hasError('required')  && memberForm.controls['fName'].touched">
                 <p>*First Name is required</p>
         </ion-item>
@@ -53,6 +67,7 @@
             <ion-input type="text" [(ngModel)]="member.lastName" formControlName="lName"  ></ion-input>
         </ion-item>
 
+         <!--If this last name field is touched and not filled displays a text saying the field is mandatory-->
         <ion-item *ngIf="memberForm.controls['lName'].hasError('required')  && memberForm.controls['lName'].touched">
                 <p>*Last Name is required</p>
         </ion-item>
@@ -83,29 +98,31 @@
             <ion-input type="text" [(ngModel)]="member.relationship" formControlName="relationship" ></ion-input>
         </ion-item>
 
+         <!--If this relationship field is touched and not filled displays a text saying the field is mandatory-->
         <ion-item *ngIf="memberForm.controls['relationship'].hasError('required')  && memberForm.controls['relationship'].touched">
                 <p>*Relationship with member is required</p>
         </ion-item>
 
         <!--To add the profile pic for the member-->
         <ion-item>
-                <ion-icon  ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+                <ion-icon color="grey" ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+                 <!--Only displayed if a pic is selected-->
                 <div id="profPic" *ngIf="imageSrc">
                 <img   src="{{imageSrc}}"> <br>
-                <button ion-button outline color="dark" id="btnCancel" icon-start (click)="cancelUpload()">
+                <button ion-button outline color="mycolor" id="btnCancel" icon-start (click)="cancelUpload()">
                         <ion-icon name="close"></ion-icon>
                       Cancel !</button>
                 </div>
                 <br>
                 <div id="picButtons">
-                <button  ion-button outline color="dark" (click)="capture()">Take Picture</button>&nbsp;&nbsp;
-                <button  ion-button outline color="dark" (click)="browsePhone()">Upload Picture</button>
+                <button  ion-button outline color="mycolor" (click)="capture()">Take Picture</button>&nbsp;&nbsp;
+                <button  ion-button outline color="mycolor" (click)="browsePhone()">Upload Picture</button>
             </div>
         </ion-item>
 
         <ion-item>
-            <button ion-button small (click)="addMember()" type="submit" [disabled]="!memberForm.valid">Add Member</button> &nbsp;&nbsp;&nbsp;&nbsp;
-            <button ion-button small (click)="cancel()">Cancel</button>
+            <button ion-button small color="mycolor"(click)="addMember()" type="submit" [disabled]="!memberForm.valid">Add Member</button> &nbsp;&nbsp;&nbsp;&nbsp;
+            <button ion-button small color="mycolor"(click)="cancel()">Cancel</button>
         </ion-item>
     </form>
 

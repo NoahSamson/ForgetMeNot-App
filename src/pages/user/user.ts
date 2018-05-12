@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, IonicApp } from 'ionic-angular';
 import * as firebase from 'firebase'; 
 import { App } from 'ionic-angular';
+import { PeoplePage } from './../people/people';
 //auth Service
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
@@ -51,6 +52,10 @@ export class UserPage {
     }).catch(function(error){
        console.log(error);
      });;
+  }
+
+  peopleMet(){
+    this.navCtrl.push(PeoplePage);
   }
 
 }

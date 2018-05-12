@@ -5,10 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="mycolor">
     <ion-title>
-      {{user.firstName}}
+      {{user.firstName}}  {{user.lastName}}
     </ion-title>
+    
     <ion-buttons end>
       <button ion-button (click)="logout()">Logout</button>
     </ion-buttons>
@@ -16,25 +17,22 @@
 </ion-header>
 
 <ion-content >
-    <ion-list >
-      <ion-item>
-          <ion-img id ="userPic" [src]=user.profilePic style="height:150px; width:150px;"></ion-img>
-      </ion-item>
-
-        <ion-item>
-          First Name : {{user.firstName}}
-        </ion-item>
-
-        <ion-item>
-          Last Name : {{user.lastName}}
-        </ion-item>
+  <ion-buttons>
+    <button ion-button outline color="mycolor" id="btnMet" (click)="peopleMet()">I Met</button>
+</ion-buttons>
+          <!--If the meber hasnt added a prof pic shows a contact icon-->
+          <ion-icon outline color="grey" *ngIf="user.profilePic == ''" ios="ios-contact" md="md-contact" id="icon2"></ion-icon>
+          <!-- If the memb has a prf pic displays it on a img src tag-->
+          <img id ="userPic" *ngIf="user.profPic" [src]=user.profilePic/>
+  <br>
+      <ion-list >
 
         <ion-item >
-            Address : {{user.address}}
+            I Live In : {{user.address}}
           </ion-item>
 
         <ion-item >
-          Telephone : {{user.phoneNum}}
+          My Contact : {{user.phoneNum}}
         </ion-item>
 
         <ion-item >
@@ -42,7 +40,7 @@
           </ion-item>
 
         <ion-item >
-          Care Taker : {{user.caretaker}}
+          My Care Taker : {{user.caretaker}}
         </ion-item>
       </ion-list>
 </ion-content>

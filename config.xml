@@ -86,6 +86,8 @@
     <plugin name="cordova-plugin-googlemaps" spec="^2.2.5">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCb7KXlEw373SYjLEEfktWvJZK-QvIzB_8" />
     </plugin>
+    <plugin name="com-badrit-base64" spec="^0.2.0" />
+    <plugin name="cordova-sms-plugin" spec="^0.1.11" />
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="7.0.0" />
 </widget>

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
+import {SMS} from '@ionic-native/sms';
 
 
 //page imports
@@ -23,6 +24,7 @@ import { UserPage } from '../pages/user/user';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {Camera} from '@ionic-native/camera';
+import { PeoplePage } from '../pages/people/people';
 //Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
@@ -32,12 +34,12 @@ import { LongPressModule } from 'ionic-long-press';
 
 //export firebase configuration
 export const firebaseConfig = {
-  apiKey: "AIzaSyCtsIcBb0zUkS-x4egUf5fNNqn4A8khLkI",
-  authDomain: "forgetmenot-7b63c.firebaseapp.com",
-  databaseURL: "https://forgetmenot-7b63c.firebaseio.com",
-  projectId: "forgetmenot-7b63c",
-  storageBucket: "forgetmenot-7b63c.appspot.com",
-  messagingSenderId: "852502676925"
+  apiKey: "AIzaSyDPzDf5rnyf7T7GYveAEBtwPnP4D6qHHxo",
+  authDomain: "fmn-sr.firebaseapp.com",
+  databaseURL: "https://fmn-sr.firebaseio.com/",
+  projectId: "fmn-sr",
+  storageBucket: "fmn-sr.appspot.com",
+  messagingSenderId: "741103811539"
 };
 
 @NgModule({
@@ -54,6 +56,7 @@ export const firebaseConfig = {
     GalleryPage,
     LifeStoryPage,
     UserPage,
+    PeoplePage,
     TabsPage
   ],
   imports: [
@@ -78,6 +81,7 @@ export const firebaseConfig = {
     GalleryPage,
     LifeStoryPage,
     UserPage,
+    PeoplePage,
     TabsPage
   ],
   providers: [

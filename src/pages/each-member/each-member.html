@@ -4,9 +4,19 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<!-- 
+  HCI issues:-
+    unable to edit the member profile
+    not able to add images from the gallery to the member profile
+    
+  Security issues:- 
+     The member profile's information are secured from viewing only to that particular user
+-->
+
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="mycolor">
     <ion-title id="title">
+      Member
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -15,12 +25,13 @@
 <ion-content>
   <!--To display the profile pic of the member-->
   <div style="text-align:center">
-    <button style="height:80px;" *ngIf="member.profPic == ''" ion-button clear outline color="dark" icon-bottom (click)="changePicture()">
-        <ion-icon ios="ios-contact" md="md-contact" id="icon"></ion-icon><br>
-      </button>
-      <button  style="height:200px; width:200px" *ngIf="member.profPic" ion-button clear icon-left (click)="changePicture()">
-        <ion-img id ="userPic" [src]=member.profPic></ion-img>
-      </button>
+    <!-- <button style="height:150px;" *ngIf="member.profPic == ''" ion-button clear outline color="grey" icon-bottom (click)="changePicture()"> -->
+        <ion-icon *ngIf="member.profPic == ''" ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+      <!-- </button> -->
+  
+      <!-- <button  style="height:200px; width:200px" *ngIf="member.profPic" ion-button clear icon-left (click)="changePicture()"> -->
+        <img id ="userPic" *ngIf="member.profPic" [src]=member.profPic/>
+      <!-- </button> -->
   </div>
 
        <!--To display the details of the member-->
@@ -48,7 +59,7 @@
         </ion-list>
 
          <!--Button to add images to the member profile-->
-            <button ion-button small outline color="dark" id="btnBrowse" icon-start (click)="browsePhone()">
+            <button ion-button small outline color="mycolor" id="btnBrowse" icon-start (click)="browsePhone()">
                 <ion-icon name="images"></ion-icon>
                Add Images
               </button>
@@ -59,12 +70,12 @@
                   <br>
                   <img src="{{imageSrc}}"> <br>
                   <!--Save Button -->
-                  <button ion-button outline color="primary" icon-start id="btnUpload"(click)="upload()" *ngIf="imageSrc">
+                  <button ion-button outline color="mycolor" icon-start id="btnUpload"(click)="upload()" *ngIf="imageSrc">
                       <ion-icon name="cloud-upload"></ion-icon>
                     Save !</button>
                     
                   <!--to cancel the image to be uploaded-->
-                    <button ion-button outline color="primary" id="btnCancel" icon-start (click)="cancelUpload()" *ngIf="imageSrc">
+                    <button ion-button outline color="mycolor" id="btnCancel" icon-start (click)="cancelUpload()" *ngIf="imageSrc">
                         <ion-icon name="close"></ion-icon>
                       Cancel !</button>
                 </div>

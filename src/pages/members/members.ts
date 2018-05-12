@@ -1,3 +1,10 @@
+
+/**
+ * Generated class for the MembersPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Events, LoadingController, Loading } from 'ionic-angular';
 import { Members } from '../../models/members.model';
@@ -8,12 +15,6 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {EachMemberPage} from '../each-member/each-member';
 
-/**
- * Generated class for the MembersPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -45,9 +46,7 @@ export class MembersPage {
       DOB: [''],
      
     });
-
-    this.loadMembers();
-     
+    this.loadMembers();   
   }
 
   ionViewDidLoad() {
@@ -72,7 +71,6 @@ export class MembersPage {
    * This will initialize the attributes to null which
    * will prevent the null pointer exception when the user doesnt fill the certain attributes on the form
    */
-
   initializeMember(){
     this.member.firstName="";
     this.member.lastName="";
@@ -98,6 +96,7 @@ export class MembersPage {
     }
     var ref = firebase.database().ref("users/"+this.userId+"/Members/");
     return new Promise((resolve,reject)=> {
+      //attributes of the member model
       var dataTosave = {
         'firstName': this.member.firstName,
         'lastName':this.member.lastName,
@@ -115,6 +114,7 @@ export class MembersPage {
 
       //once uploaded reset the form and imagesrc
       this.imageSrc="";
+      //after the data is pushed clears the member form
       this.memberForm.reset();
       this.viewAllMembers();
    });  
@@ -149,6 +149,9 @@ export class MembersPage {
   });
   }
 
+  /**
+   * If the user wants to upload a prof pic of the member by capturing
+   */
   capture() {
     // properties for the picture to be captured
     const cameraOptions: CameraOptions = {
@@ -160,17 +163,20 @@ export class MembersPage {
     };
     
     this.camera.getPicture(cameraOptions).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:
+     //once captured hides the button to capture 0r upload pic and the icon of profile pic
       document.getElementById('icon').style.display="none"
       document.getElementById('picButtons').style.display="none"
 
+      //puts the base 64 image data to the imageSrc variable so that the image is displayed
       this.imageSrc = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
      console.log(err);
     });
   }
-
+  
+/**
+ * If the user wants to access the local storage to upload a pic of the member
+ */
   browsePhone(){
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -178,8 +184,11 @@ export class MembersPage {
       quality: 100,
       encodingType: this.camera.EncodingType.PNG,
     }).then(imageData => {
+      //once captured hides the button to capture 0r upload pic and the icon of profile pic
       document.getElementById('icon').style.display="none"
       document.getElementById('picButtons').style.display="none"
+
+       //puts the base 64 image data to the imageSrc variable so that the image is displayed
       this.imageSrc = 'data:image/jpeg;base64,' + imageData;
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
@@ -225,6 +234,8 @@ export class MembersPage {
     });
     this.loading.present();
     setTimeout(() => { 
+      this.loadMembers();
+      this.loading.dismiss();
     }, 5000);
   }
 
@@ -237,5 +248,38 @@ export class MembersPage {
     });
   }
  
-  
+  //to remove the member on long press
+  Remove(deleteKey){
+    let alert = this.alertCtrl.create({
+      title: 'Remove',
+      subTitle: 'from Member List',
+      buttons: [
+        {
+            text: 'Okay',
+            handler: () => {
+                alert.dismiss(true);
+                return false;
+            }
+        }, {
+            text: 'Cancel',
+            handler: () => {
+                alert.dismiss(false);
+                return false;
+            }
+        }
+    ]
+    });
+    alert.present();
+    alert.onDidDismiss((data) => {
+      console.log('Yes/No', data);
+      if(data==true){
+        console.log(deleteKey)
+        // if the response is true removes the image from the lifestory
+        firebase.database().ref('users/'+this.userId+'/Members/'+ deleteKey).remove();
+          // this.loadData();
+          this.presentLoadingDefault();       
+      }
+        });
+    
+    }
 }

@@ -4,18 +4,16 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { firebaseConfig } from "../../app/app.module";
 import {storage} from 'firebase';
 import firebase from 'firebase';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
-
 import { AngularFireAuth } from "AngularFire2/auth";
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { UserPage } from '../user/user';
 import { AngularFireDatabase } from "angularfire2/database";
 import { User } from '../../models/user.model';
 import { App } from 'ionic-angular';
 
 
 
-var validateRadio;
 /**
  * Generated class for the RegisterPage page.
  *
@@ -30,27 +28,33 @@ var validateRadio;
   providers: [AngularFireAuth]
 })
 export class RegisterPage {
-
-  //captureDataUrl: string;
   alertCtrl: AlertController;
   public myPhotosRef: any;
   public myPhoto: any;
   public myPhotoURL: any;
   public imageSrc: string;
   public loading:Loading;
-  
-  
+  public emailForm:FormGroup;
+  public confPassword:any;
+  public validateRadio:boolean;
+  public isPic:boolean;
+  private ctmail;
+  private ctnum;
+  //user obj
   user = {} as User;
 
-
-  constructor(private app:App, private firebaseAuth: AngularFireAuth, private camera : Camera ,public navCtrl: NavController,
+  constructor(private app:App, public formBuilder: FormBuilder,private firebaseAuth: AngularFireAuth, private camera : Camera ,public navCtrl: NavController,
     alertCtrl: AlertController, public navParams: NavParams , public toastCtrl: ToastController,  
     public zone:NgZone,public loadingCtrl: LoadingController, firebasedb : AngularFireDatabase, public authService: AuthServiceProvider) {
     this.myPhotosRef = firebase.storage().ref(); 
     this.alertCtrl =  alertCtrl;
-
-
-   
+    this.initializeUser();
+    this.emailForm =this. formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confPassword: ['', Validators.required], 
+    });
+  
   }
   
   //Gets called when the page loads
@@ -59,47 +63,28 @@ export class RegisterPage {
     console.log('ionViewDidLoad RegisterPage');
   }
 
- async takePhoto() {
-      const options : CameraOptions = {
-        quality : 50 ,
-        targetHeight : 600,
-        targetWidth  :600,
-        destinationType : this.camera.DestinationType.DATA_URL,
-        encodingType : this.camera.EncodingType.JPEG,
-        mediaType : this.camera.MediaType.PICTURE
-      }
-
-      const result = await this.camera.getPicture(options);
-      const image = `data:images/jpeg;base64,${result}`;
-      const pictures = storage().ref();
-      pictures.putString(image,'data_url');
+  initializeUser(){
+    this.user.firstName="";
+    this.user.lastName="";
+    this.user.address="";
+    this.user.phoneNum="";
+    this.user.cenLocLat=0;
+    this.user.cenLocLong=0;
+    this.user.radius=0;
+    this.user.profilePic="";
   }
-
- 
- 
-
+//Uploads to the database
   uploadDb(savedPicture){
       var ref = firebase.database().ref('assets');
-
       return new Promise((resolve,reject)=> {
         var dataTosave = {
           'URL' : savedPicture.downloadURL,
           'name' : savedPicture.metadata.name,
-
         };
-
         ref.push(dataTosave);
-
       });
   }
-
-
  
-
-
-  
-
-
   showSuccesfulUploadAlert() {
     let alert = this.alertCtrl.create({
       title: 'Uploaded!',
@@ -109,52 +94,54 @@ export class RegisterPage {
     alert.present();
 
     // clear the previous photo data in the variable
-    this.imageSrc = "";
-    
+    this.imageSrc = ""; 
   }
 
    presentLoadingText() {
-    
     this.loading = this.loadingCtrl.create({
       spinner: 'bubbles',
       content: 'Uploading image'
     });
-
-    this.loading.present();
-    
+    this.loading.present();  
   } 
 
- 
-
-  
   /**
    * Register the user
    */
 
-
     //Switch between the email and password part and the user details part when registering
     test(){
+      if(this.user.password==this.confPassword){
+        if(this.user.password.length>6){
       document.getElementById("regForm").style.display="none";
-      document.getElementById("otherDetails").style.display="block";
-       
+      document.getElementById("otherDetails").style.display="block"; 
+        }
+        else{
+          alert("You're password is too weak")
+        }  
+      }
+      else{
+        alert("Password mismatched!")
+      } 
     }
     
     //Gets called if the user selected caretaker 
     radioCheckedCaretaker(){
       document.getElementById("caretakerInfo").style.display="none";
-      validateRadio=true;
+      this.validateRadio=true;
     }
 
     //Gets called if the user selected Patient
     radioCheckedPatient(){
       document.getElementById("caretakerInfo").style.display="block";
+      this.validateRadio=true;
       
     }
 
   //to make sure the user select either patient or caretaker. And show a warning
-  presentAlert() {
+  presentAlert(message) {
     let alert = this.alertCtrl.create({
-      title: 'Please select a role',
+      title: message,
       subTitle: '',
       buttons: ['Dismiss']
     });
@@ -163,13 +150,35 @@ export class RegisterPage {
 
   //Register the user using the user object populated with details from the user
   async signup(user: User) {
-   await this.uploadProfPic();
-    this.authService.signupService(user).then(authData => {
-    this.logout();
-    }) ;
+    //only if the prfile pic is added
+    if(this.isPic){
+      await this.uploadProfPic();
+    }
+    //validations
+    if(this.validateRadio==true){
+        if(this.user.role=="patient"){
+          if((this.ctmail==null)||(this.ctnum==null))
+            this.presentAlert("Please fill in the caretaker details")       
+        }
+    }
+    else{
+     this. presentAlert("Please select a role")
+    }
+
+    if((this.user.firstName!="")&& (this.user.lastName!="")&&(this.user.address!="")&&(this.user.phoneNum!="")){
+      this.authService.signupService(user).then(authData => {
+        this.logout();
+        }) ;   
+    }
+    else{
+      this.presentAlert("Please fill in all the details!")
+    }
+    
+           
   }
 
   capture() {
+    this.isPic=true;
     // properties for the picture to be captured
     const cameraOptions: CameraOptions = {
       quality: 50,
@@ -191,7 +200,11 @@ export class RegisterPage {
     });
   }
 
+  /**
+   * allows to select pic from local storage
+   */
   browsePhone(){
+    this.isPic=true;
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -207,6 +220,7 @@ export class RegisterPage {
  
   }
 
+  //uploads the pic to the storages
  async uploadProfPic(){
     let storageRef = firebase.storage().ref();
     // Create a timestamp as filename
@@ -219,14 +233,13 @@ export class RegisterPage {
       }); 
   }
 
+  //cancels the pic selected
   cancelUpload(){
     document.getElementById('icon').style.display="block"
     document.getElementById('picButtons').style.display="block"
     this.imageSrc="";
   }
  
-
-
   presentLoadingDefault() {
    this.loading= this.loadingCtrl.create({
       spinner: 'bubbles',
@@ -234,13 +247,10 @@ export class RegisterPage {
     });
     this.loading.present();
     setTimeout(() => {
-     
-      //clears the dismiss after 5secs
-      
+      //clears the dismiss after 5secs  
     }, 5000);
   }
-
-
+//logouts the user
   logout() {
     this.authService.logout().then(() => {
       this.app.getRootNav().setRoot(LoginPage);

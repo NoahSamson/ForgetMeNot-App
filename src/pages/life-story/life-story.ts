@@ -83,10 +83,13 @@ export class LifeStoryPage {
     alert.onDidDismiss((data) => {
       console.log('Yes/No', data);
       if(data==true){
+        console.log(deleteKey)
         // if the response is true removes the image from the lifestory
-        firebase.database().ref('Assets/LifeStory/'+ deleteKey).remove();
-        //this.loadData();
-        this.presentLoadingDefault();
+        firebase.database().ref('users/'+this.userId+'/Assets/Life-story/'+ deleteKey).remove();
+          // this.loadData();
+          this.presentLoadingDefault();
+      
+        
       }
 });
     
@@ -97,10 +100,10 @@ export class LifeStoryPage {
       spinner: 'bubbles',
       content: 'Please wait...'
     });
-    this.loadData();
+    //this.loadData();
     loading.present();
     setTimeout(() => {
-      this.navCtrl.push(LifeStoryPage);
+     this.loadData();
       loading.dismiss();
     }, 5000);
   }

@@ -5,9 +5,12 @@
   Ionic pages and navigation.
 -->
 
+<!-- HCI Issues -->
+    <!--There is no validation when the user registers -->
+
 <ion-header>
 
-  <ion-navbar color="primary">
+  <ion-navbar color="mycolor">
     <ion-title>Registration</ion-title>
   </ion-navbar>
 
@@ -15,110 +18,139 @@
 
 
 <ion-content padding>
-  
-   
-  <div id="regForm">
+   <!-- Register Form-->
+  <form id="regForm"  [formGroup]="emailForm" novalidate>
     <ion-list>
+     <!-- Register Email -->
     <ion-item>
-      <ion-label stacked>E-mail address: </ion-label>
-      <ion-input type="email" [(ngModel)] = "user.email" name="email" required="required"></ion-input>
+      <ion-label  class="labels">E-mail address: </ion-label>
+      <p>*Email is required</p>
+      <ion-input type="email" [(ngModel)] = "user.email" formControlName="email" required="required"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label stacked>Password: </ion-label>
-      <ion-input type="password" [(ngModel)] = "user.password" name="password" required="required"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked>Confirm Password: </ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-    <button ion-button id="btnRegister"ion-button (click)="test()">Next</button>
-  </ion-list>
-</div>
 
+    <!--If this Email field is touched and not filled displays a text saying the field is mandatory-->
+    <ion-item *ngIf="emailForm.controls['email'].hasError('required')  && emailForm.controls['email'].touched">
+      <p>*Email is required</p>
+    </ion-item>
     
+    <!-- Register Password -->
+    <ion-item>
+      <ion-label class="labels">Password: </ion-label>
+      <ion-input type="password" [(ngModel)] = "user.password" formControlName="password" ></ion-input>
+    </ion-item>
 
-   
+     <!--If this Password field is touched and not filled displays a text saying the field is mandatory-->
+     <ion-item *ngIf="emailForm.controls['password'].hasError('required')  && emailForm.controls['password'].touched">
+      <p>*Password is required</p>
+    </ion-item>
+
+
+    <!-- Register Confirm Password -->
+    <ion-item>
+      <ion-label class="labels">Confirm Password: </ion-label>
+      <p>*Confirm the password</p>
+      <ion-input type="password" [(ngModel)] = "confPassword" formControlName="confPassword"></ion-input>
+    </ion-item>
+<!--If this confirm Password field is touched and not filled displays a text saying the field is mandatory-->
+    <ion-item *ngIf="emailForm.controls['confPassword'].hasError('required')  && emailForm.controls['confPassword'].touched">
+      <p>*Confirm Password is required</p>
+    </ion-item>
+    
+    <!-- Register Button -->
+    <button ion-button color="mycolor" id="btnNext"ion-button (click)="test()" type="submit" [disabled]="!emailForm.valid">Next</button>
+  </ion-list>
+</form>
+  
+    <!-- Further details of registration-->
     <ion-list id="otherDetails">
+      <!-- Register First Name -->
         <ion-item>
-          <ion-label>First Name</ion-label>
+          <ion-label class="labels" >First Name</ion-label>
           <ion-input type="text" [(ngModel)]="user.firstName" name="firstName"></ion-input>
         </ion-item>
       
+        <!-- Register LastName-->
         <ion-item>
-          <ion-label>Last Name</ion-label>
+          <ion-label class="labels" >Last Name</ion-label>
           <ion-input type="text" [(ngModel)]="user.lastName" name="lastName"></ion-input>
         </ion-item>
 
+        <!-- Register Address -->
           <ion-item>
-            <ion-label>Address</ion-label>
+            <ion-label class="labels">Address</ion-label>
             <ion-input type="text" [(ngModel)]="user.address" name="address"></ion-input>
           </ion-item>
           
+          <!-- Register Phone Number -->
           <ion-item>
-              <ion-label>Phone Number</ion-label>
+              <ion-label class="labels">Phone Number</ion-label>
               <ion-input type="text" [(ngModel)]="user.phoneNum" name="phoneNum"></ion-input>
             </ion-item>           
 
+            <!-- Register Profile Pic -->
             <ion-item>
-              <ion-icon  ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+              <ion-icon color="grey" ios="ios-contact" md="md-contact" id="icon"></ion-icon>
+              <!-- Displays  if a pic is selected-->
                 <div id="profPic" *ngIf="imageSrc">
                 <img   src="{{imageSrc}}"> <br>
-                <button ion-button outline color="dark" id="btnCancel" icon-start (click)="cancelUpload()">
+                <button ion-button outline color="mycolor" id="btnCancel" icon-start (click)="cancelUpload()">
                         <ion-icon name="close"></ion-icon>
                       Cancel !</button>
                 </div>
+
                 <br>
                 <div id="picButtons">
-                <button  ion-button outline color="dark" (click)="capture()">Take Picture</button>&nbsp;&nbsp;
-                <button  ion-button outline color="dark" (click)="browsePhone()">Upload Picture</button>
+                <button  ion-button outline color="mycolor" (click)="capture()">Take Picture</button>&nbsp;&nbsp;
+                <button  ion-button outline color="mycolor" (click)="browsePhone()">Upload Picture</button>
             </div>
               
+            <!-- Radio button to choose the role of the user -->
           </ion-item>
             
              <div id="radioChoose">
               <ion-list radio-group [(ngModel)]="user.role">
-             <ion-list-header id="listHeader">
-               Role:
+             <ion-list-header  color="dark"id="listHeader">
+               ROLE:
              </ion-list-header>
              
              <ion-item>
-                <ion-label>Caretaker</ion-label>
+                <ion-label class="labels" >Caretaker</ion-label>
                 <ion-radio value="caretaker" (ionSelect)="radioCheckedCaretaker()"></ion-radio>
               </ion-item>
              <ion-item>
-                 <ion-label>Patient</ion-label>
+                 <ion-label class="labels" >Patient</ion-label>
                  <ion-radio  value="patient" (ionSelect)="radioCheckedPatient()" ></ion-radio>
                </ion-item>          
                </ion-list>     
                </div>    
                
+               <!-- If the Patient is selected -->
                <div id="caretakerInfo">
                 <br><br><br><br>
                 <ion-list>
-                  <ion-list-header id="listHeader">
+                  <ion-list-header color="dark" id="listHeader">
                       Link with your Caretaker!
                     </ion-list-header>
                   <ion-item>
-                    <ion-label>Caretaker's mail address:</ion-label> 
-                    <ion-input type="email" [(ngModel)]="user.caretaker" name="caretaker"></ion-input>
+                    <!-- Caretaker's Email-->
+                    <ion-label class="labels" >Caretaker's mail address:</ion-label> 
+                    <ion-input type="email" [(ngModel)]="user.caretaker" name="caretakerMail" [(ngModel)]="ctmail"></ion-input>
                   </ion-item>
                   <ion-item>
-                      <ion-label>Verification Code:</ion-label> 
-                      <ion-input type="text"></ion-input>
+                    <!-- Caretaker's Phone number -->
+                      <ion-label class="labels" >Contact No:</ion-label> 
+                      <ion-input type="text" [(ngModel)]="user.caretakerNum" name="caretakerNum" [(ngModel)]="ctnum"></ion-input>
                   </ion-item>
                  
                   </ion-list>
               </div>
       
-
-         <button ion-button icon-right id="btnNext" (click)="signup(user)">
+              <!-- Register Button -->
+         <button ion-button color="mycolor" icon-right id="btnRegister" (click)="signup(user)">
             Register
         <ion-icon name="arrow-dropright"></ion-icon>
           </button>   
-      
+          <br><br><br>
       </ion-list>
-      
-
-      <!-- <button id="btnRegister"ion-button (click)= "signup(user)">Register</button> -->
 
 </ion-content>

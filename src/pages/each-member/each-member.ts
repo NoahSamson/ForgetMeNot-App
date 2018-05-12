@@ -52,6 +52,9 @@ memberPhotos:any;
     console.log('ionViewDidLoad EachMemberPage');
   }
 
+  /**
+ * Browsing the local storage to upload pics
+ */
   browsePhone(){
     this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -59,6 +62,7 @@ memberPhotos:any;
       quality: 100,
       encodingType: this.camera.EncodingType.PNG,
     }).then(imageData => {
+      //makes the imagedata as base64
       this.imageSrc = 'data:image/jpeg;base64,' + imageData;
     }, error => {
       console.log("ERROR -> " + JSON.stringify(error));
@@ -102,6 +106,7 @@ memberPhotos:any;
     //get the reference to save the image url
     var ref = firebase.database().ref('users/'+this.userId+'/Members/'+this.memberID+'/MemberPhotos');
     return new Promise((resolve,reject)=> {
+      //attributes to be saved to the database
       var dataTosave = {
         'URL' : this.url,
         'name' : name,  

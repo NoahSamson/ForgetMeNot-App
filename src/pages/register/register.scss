@@ -2,12 +2,16 @@ page-register {
     #btnRegister{
         //display:none;
          font-size:15px;
-         width: 80px;
+         width: 100px;
          height:35px;
          position:relative;
-         right:-85px;
+         left:90px;
          top: 50px;
      }
+     .labels{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+       font-size: 16px;
+   }
      #radioChoose{
          display:block;
          height: 100px;
@@ -15,16 +19,17 @@ page-register {
      #btnNext{
          display: block;
          position: relative;
-         left: 210px;
+         left: 110px;
          bottom: -60px;
      }
      #listHeader{
-         font-size:18px
+         font-size:18px;
+         
      }
      #icon{
          position: relative;
-         right:-30px;
-         font-size: 50px
+        left: 80px;
+         font-size: 90px
      }
      #caretakerInfo{
          display: none;
@@ -38,7 +43,7 @@ page-register {
         font-size: 20px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        text-shadow: 2px 2px 2px black;
+        //text-shadow: 2px 2px 2px black;
     
 
     }

@@ -1,3 +1,4 @@
+// Security
 import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
@@ -37,6 +38,8 @@ export class LoginPage {
   public loginForm: FormGroup;
 
   constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public authService: AuthServiceProvider, public formBuilder: FormBuilder, alertCtrl: AlertController) {
+  //  This makes sure that the user has typed the email and passeword
+    //validating Form 
     this.loginForm = formBuilder.group({
       eml: ['', Validators.required],
       pass: ['', Validators.required]
@@ -47,8 +50,6 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-   
-
   }
 
   goToRegisterPage(){
@@ -57,11 +58,12 @@ export class LoginPage {
     this.navCtrl.push(RegisterPage);
   }
 
+  //Logins the new user
    login(user: User) {
       this.authService.login(user.email, user.password).then(authData => {
         this.navCtrl.setRoot(TabsPage);
         let toast =this.toastCtrl.create({
-          message: 'Welcome' + this.user.firstName,
+          message: 'Welcome' ,
           duration: 3000,
           position: 'bottom'
         });
@@ -69,17 +71,18 @@ export class LoginPage {
         user.email = user.password = '';
         
       }).catch(err => {
+        //Security
+        // The user will be given this alert if any error occurs in the login process
         let alert = this.alertCtrl.create({
           title: 'invalid' ,
-          subTitle: 'invalid username or password',
+          subTitle: 'Something went wrong, make sure you online and try again',
           buttons: ['OK']
         });
         alert.present();
       });
-      
-
   }
 
+  //To logout a user
   logout() {
     this.authService.logout();
   }
