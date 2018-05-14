@@ -3,6 +3,8 @@ import { ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,AlertController, LoadingController,Loading } from 'ionic-angular';
 import firebase from 'firebase';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Slides } from 'ionic-angular';
+
 /**
  * Generated class for the LifeStoryPage page.
  *
@@ -19,12 +21,14 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 
 
+
 export class LifeStoryPage {
   loading:Loading;
   lifeStoryPics:any;
   alertCtrl: AlertController;
   userId:any;
-  
+  @ViewChild(Slides) slides: Slides;
+ 
   constructor( public loadingCtrl: LoadingController,public authService: AuthServiceProvider,public navCtrl: NavController, public navParams: NavParams,alertCtrl: AlertController ) {
     this.alertCtrl = alertCtrl;
     this.userId=authService.getCurrentUser();
@@ -33,9 +37,20 @@ export class LifeStoryPage {
   ionViewDidLoad() {
     //loads the elements from the lifestory
     this.loadData();
+  
+  }
+  ionViewWillLeave(){
+    if (this.slides !== undefined) {
+      this.slides.stopAutoplay();
+    }
+  }
+  ionViewDidEnter(){
+    //alert("hello")
+    if (this.slides !== undefined) {
+      this.slides.startAutoplay();
+    }
   }
   
- 
  
   async loadData() {
     //reference to the database 

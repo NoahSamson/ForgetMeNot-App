@@ -4,6 +4,8 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+
 <ion-header>
   <ion-navbar color="mycolor">
     <ion-title>
@@ -17,14 +19,34 @@
 </ion-header>
 
 <ion-content >
-  <ion-buttons>
-    <button ion-button outline color="mycolor" id="btnMet" (click)="peopleMet()">I Met</button>
-</ion-buttons>
+          <!-- to edit the profile pic -->
+          <button (click)="edit()">
+              <img id="editpic" src="../../assets/imgs/edit.png"/>
+          </button>
           <!--If the meber hasnt added a prof pic shows a contact icon-->
           <ion-icon outline color="grey" *ngIf="user.profilePic == ''" ios="ios-contact" md="md-contact" id="icon2"></ion-icon>
           <!-- If the memb has a prf pic displays it on a img src tag-->
-          <img id ="userPic" *ngIf="user.profPic" [src]=user.profilePic/>
+          <img id ="userPic" *ngIf="user.profilePic" [src]=user.profilePic/>
+          
+           
   <br>
+      <div id="imageDiv" *ngIf="imageSrc">
+      <!--To display the selected image-->
+      <div >
+        <img src="{{imageSrc}}" height="200px" width=200px />
+        </div>
+        <!--button to update the prof pic -->
+        <button ion-button outline color="mycolor" icon-start id="btnUpload"(click)="upload()" >
+            <ion-icon name="create"></ion-icon>
+          Update!</button>
+    
+          <!--Cancel Button to cancel the selected file from the local storage -->
+          <button ion-button outline color="mycolor" id="btnCancel" icon-start (click)="cancelUpload()">
+              <ion-icon name="close"></ion-icon>
+            Cancel !</button>
+            </div>
+
+            <!--user Details -->
       <ion-list >
 
         <ion-item >
@@ -39,8 +61,13 @@
             Email : {{user.email}}
           </ion-item>
 
-        <ion-item >
+        <ion-item *ngIf="user.role == 'patient'">
           My Care Taker : {{user.caretaker}}
+        </ion-item>
+        <ion-item>
+          <ion-buttons>
+            <button ion-button outline color="mycolor" id="btnMet" (click)="peopleMet()">I Met</button>
+        </ion-buttons>
         </ion-item>
       </ion-list>
 </ion-content>

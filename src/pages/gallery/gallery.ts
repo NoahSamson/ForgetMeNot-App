@@ -280,6 +280,7 @@ loadData() {
 
  //when the user selects an album to add a selected pic
    selectedAlbum(albumName){
+     
      //clears the viewed image
       this.fullImage="";
       //loads the album names and displays it on selectfolder div
@@ -314,7 +315,8 @@ loadData() {
    }
 
   //to diplay the album folders in a div 
-   openAlbum(){  
+   openAlbum(){ 
+    document.getElementById("btnBrowse").style.display="none" 
     this.loadAlbums();
     document.getElementById("title").innerHTML="Albums"  
     document.getElementById("selectFolder").style.display="none";
@@ -338,6 +340,7 @@ loadData() {
 
 //when the user taps on an album to view the pics in it
   openFolder(albumName){
+    document.getElementById("btnBrowse").style.display="none"
     //changes the albumname to the currently tapped folder
     this.albumName=albumName;
     document.getElementById("title").innerHTML=albumName;
@@ -377,6 +380,7 @@ loadData() {
 
    //to go to gallery view
    goToGallery(){
+    document.getElementById("btnBrowse").style.display="block"
       this.currentFolder="Gallery/";
       document.getElementById("title").innerHTML="Gallery"
       document.getElementById("grid1").style.display = "block";
