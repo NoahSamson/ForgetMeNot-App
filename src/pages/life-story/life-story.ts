@@ -27,6 +27,7 @@ export class LifeStoryPage {
   lifeStoryPics:any;
   alertCtrl: AlertController;
   userId:any;
+  //get the slides from the html page
   @ViewChild(Slides) slides: Slides;
  
   constructor( public loadingCtrl: LoadingController,public authService: AuthServiceProvider,public navCtrl: NavController, public navParams: NavParams,alertCtrl: AlertController ) {
@@ -39,11 +40,13 @@ export class LifeStoryPage {
     this.loadData();
   
   }
+  //on leave of the page stop the slide show
   ionViewWillLeave(){
     if (this.slides !== undefined) {
       this.slides.stopAutoplay();
     }
   }
+  //on enter of the page start the slideshow
   ionViewDidEnter(){
     //alert("hello")
     if (this.slides !== undefined) {

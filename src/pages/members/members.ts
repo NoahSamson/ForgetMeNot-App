@@ -6,10 +6,9 @@
  * Ionic pages and navigation.
  */
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController,LoadingController, Loading } from 'ionic-angular';
 import { Members } from '../../models/members.model';
 import firebase from 'firebase';
-import{UserPage}from '../user/user';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

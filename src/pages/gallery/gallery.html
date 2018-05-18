@@ -7,12 +7,14 @@
 HCI issues:- 
   * Captured images was not able to be wrapped as blob, therefore capture option was removed 
   but user can upload images and videos from local storage.
-  * As images are of different types there are spaces between images when displaying all the images in gallery.
+  * As images are of different types there are spaces between images when displaying all the images in gallery
+  Solved:- solved it by defining the image size and video size
 
-  Safety issues:- 
+  Safety:- 
   * images uploaded are encoded and safely sent to the cloud so there is more safety in handling user data.
 
 -->
+<!-- navigator through album, gallery,browse-->
 <ion-menu [content]="content">
   <ion-header >
     <ion-toolbar>
@@ -31,10 +33,9 @@ HCI issues:-
         Browse
       </button>            
     </ion-list>
-   
   </ion-content>
 </ion-menu>
-<!-- <ion-menu  persistent="false" side="right" [content]="content"> -->
+
 
 <ion-nav id="nav" #content [root]="GalleryPage"></ion-nav>
 
@@ -53,35 +54,7 @@ HCI issues:-
 
 <ion-content>
   
-  <!-- To display the buttons to navigate
-  <ion-grid >
-    <ion-row>
-      <ion-col col col-2 col-md-2 col-xl-2>
-        Gallery Button 
-        <button ion-button small outline color="mycolor"  id="btnGallery" icon-start (click)="goToGallery()">
-            <ion-icon  name="images"></ion-icon>
-            Gallery  
-        </button>
-      </ion-col>
-
-      <ion-col>
-        
-          <button ion-button small outline color="mycolor" id="btnAlbum" icon-start (click)="openAlbum()">
-              <ion-icon name="albums"></ion-icon>
-              Albums </button>  
-      </ion-col>
-
-      <ion-col >
-       
-          <button ion-button small outline color="mycolor" id="btnBrowse" icon-start (click)="browsePhone()">
-              <ion-icon name="folder-open"></ion-icon>
-              Browse </button>  
-      </ion-col>
-
-    </ion-row>
-    <hr>
-  </ion-grid> -->
-
+ 
 <!--Division to display the Folders in the album -->
   <div id="albums" style="display:none;">
     <br><br><br>
@@ -133,10 +106,10 @@ HCI issues:-
           <p class="imageName">{{item.name}}</p>
 
           <!--checks for the item's type if it is an image displays using the img tag -->
-          <img [src]=item.URL (click)="viewImage(item.id)" *ngIf="item.type == 'image/png'"/>
+          <img class="gimage"[src]=item.URL (click)="viewImage(item.id)" *ngIf="item.type == 'image/png'"/>
 
           <!--checks for the item's type if it is a video displays using the video tag -->
-          <video width="120" height="120" controls *ngIf="item.type == 'video/mp4'"  (click)="viewImage(item.id)">
+          <video width="150" height="150" controls *ngIf="item.type == 'video/mp4'"  (click)="viewImage(item.id)">
             <source [src]=item.URL type="video/mp4">
           </video>
 
@@ -230,10 +203,10 @@ HCI issues:-
         <p class="imageName">{{item.name}}</p>
         <div>
           <!--checks for the item's type added to the folder if it is an image displays using the img tag -->
-          <img [src]=item.URL  *ngIf="item.type == 'image/png'"  (click)="viewImage(item.id)"/>
+          <img class="gimage" [src]=item.URL  *ngIf="item.type == 'image/png'"  (click)="viewImage(item.id)"/>
 
           <!--checks for the item's type added to the folder if it is a video displays using the img tag -->
-          <video width="200" height="190" controls *ngIf="item.type == 'video/mp4'"  (click)="viewImage(item.id)">
+          <video width="150" height="150" controls *ngIf="item.type == 'video/mp4'"  (click)="viewImage(item.id)">
           <source [src]=item.URL type="video/mp4">
           </video>
           

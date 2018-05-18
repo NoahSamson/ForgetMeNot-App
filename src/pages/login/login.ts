@@ -1,5 +1,4 @@
 // Security
-import { HomePage } from './../home/home';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 
@@ -12,7 +11,6 @@ import { User } from '../../models/user.model';
 
 //Pages
 import { RegisterPage } from '../register/register';
-import { UserPage } from '../user/user';
 import { TabsPage } from './../tabs/tabs';
 
 /**

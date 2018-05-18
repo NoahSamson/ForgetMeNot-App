@@ -19,10 +19,7 @@
 </ion-header>
 
 <ion-content >
-          <!-- to edit the profile pic -->
-          <button (click)="edit()">
-              <img id="editpic" src="../../assets/imgs/edit.png"/>
-          </button>
+      
           <!--If the meber hasnt added a prof pic shows a contact icon-->
           <ion-icon outline color="grey" *ngIf="user.profilePic == ''" ios="ios-contact" md="md-contact" id="icon2"></ion-icon>
           <!-- If the memb has a prf pic displays it on a img src tag-->

@@ -1,8 +1,8 @@
-import { AngularFireAuth } from 'angularfire2/auth';
+//import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
-import { IonicPage, NavController,AlertController,Loading,LoadingController, NavParams, IonicApp } from 'ionic-angular';
+import { IonicPage, NavController,AlertController,Loading,LoadingController, NavParams} from 'ionic-angular';
 import * as firebase from 'firebase'; 
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera} from '@ionic-native/camera';
 import { App } from 'ionic-angular';
 import { PeoplePage } from './../people/people';
 //auth Service
@@ -11,13 +11,6 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 //import Model
 import { User } from '../../models/user.model';
 import { LoginPage } from '../login/login';
-import { variable } from '@angular/compiler/src/output/output_ast';
-/**
- * Generated class for the UserPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -45,12 +38,9 @@ export class UserPage {
     personRef.on('value', personSnapshot => {
        this.user = personSnapshot.val();
     });
-
-    console.log(this.user);
-
   }
  
-  //get the pic from the phone
+//get the pic from the phone
  edit(){
   this.camera.getPicture({
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -63,18 +53,6 @@ export class UserPage {
     console.log("ERROR -> " + JSON.stringify(error));
   });
 }
-
-presentLoadingDefault() {
-  this.loading= this.loadingCtrl.create({
-     spinner: 'bubbles',
-     content: 'Please wait...'
-   });
-   this.loading.present();
-   setTimeout(() => {
-     //clears the dismiss after 5secs  
-   }, 5000);
- }
-
 async upload() {
   let storageRef = firebase.storage().ref();
     // Create a timestamp as filename
@@ -89,7 +67,6 @@ async upload() {
       //New image to be updated
       var userData={
         'URL': snapshot.downloadURL,
-        'address':"bee" //testing:to chk if it is getting updated
       }
      
       //get the reference location of the user to be updated
@@ -114,7 +91,6 @@ async upload() {
 
 //cancels the pic selected
 cancelUpload(){
- 
   this.imageSrc="";
 }
 

@@ -1,8 +1,6 @@
 import { Component , NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading, ToastController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { firebaseConfig } from "../../app/app.module";
-import {storage} from 'firebase';
 import firebase from 'firebase';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginPage } from '../login/login';
@@ -11,15 +9,6 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { AngularFireDatabase } from "angularfire2/database";
 import { User } from '../../models/user.model';
 import { App } from 'ionic-angular';
-
-
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -43,7 +32,7 @@ export class RegisterPage {
   //user obj
   user = {} as User;
 
-  constructor(private app:App, public formBuilder: FormBuilder,private firebaseAuth: AngularFireAuth, private camera : Camera ,public navCtrl: NavController,
+  constructor(private app:App, public formBuilder: FormBuilder, private camera : Camera ,public navCtrl: NavController,
     alertCtrl: AlertController, public navParams: NavParams , public toastCtrl: ToastController,  
     public zone:NgZone,public loadingCtrl: LoadingController, firebasedb : AngularFireDatabase, public authService: AuthServiceProvider) {
     this.myPhotosRef = firebase.storage().ref(); 
@@ -150,6 +139,7 @@ export class RegisterPage {
 
   //Register the user using the user object populated with details from the user
   async signup(user: User) {
+   
     //only if the prfile pic is added
     if(this.isPic){
       await this.uploadProfPic();
@@ -167,6 +157,7 @@ export class RegisterPage {
 
     if((this.user.firstName!="")&& (this.user.lastName!="")&&(this.user.address!="")&&(this.user.phoneNum!="")){
       this.authService.signupService(user).then(authData => {
+        this.presentAlert("Please login to continue!")
         this.logout();
         }) ;   
     }
@@ -175,6 +166,46 @@ export class RegisterPage {
     }
     
            
+  }
+
+  agreement(){
+    let alert = this.alertCtrl.create({
+      title: 'Terms & Conditions!',
+      subTitle: 'As the user of ForgetMeNot you will be bound to the followings:-'+
+
+      '- User data is collected in order to use for the application and these data access are limited to authenticated users only according to Data protection act 1998.'+
+      '- User images and videos are captured and these are confidentially maintained without any misusage or abusing of the person.'+
+      '- User current location is tracked in order to fulfill the application functioanlity and maintained scurely.'+
+      '- Messages are sent from the user mobile phone to the caretaker in case of any emergencies.',
+      buttons: [
+        {
+            text: 'I agree',
+            handler: () => {
+                alert.dismiss(true);
+                return false;
+            }
+        }, {
+            text: 'Cancel',
+            handler: () => {
+                alert.dismiss(false);
+                return false;
+            }
+        }
+    ]
+    });
+    alert.present();
+    alert.onDidDismiss((data) => {
+      console.log('Yes/No', data);
+      if(data==true){
+        this.signup(this.user);   
+      }
+      else{
+        this.navCtrl.push(LoginPage);
+      }
+});
+    
+
+
   }
 
   capture() {

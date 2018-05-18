@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
-import{MembersPage} from '../members/members'
+//import{MembersPage} from '../members/members'
 import { Members } from '../../models/members.model';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import firebase from 'firebase';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera} from '@ionic-native/camera';
 
 
 /**

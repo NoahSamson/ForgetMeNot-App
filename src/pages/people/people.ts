@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import firebase from 'firebase';
-import {EachMemberPage} from '../each-member/each-member';
+//import {EachMemberPage} from '../each-member/each-member';
 
 
 /**

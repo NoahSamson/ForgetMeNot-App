@@ -1,20 +1,11 @@
-/**
- * Generated class for the GalleryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
+
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading, RadioButton } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import {storage} from 'firebase';
+import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
+import { Camera } from '@ionic-native/camera';
 import firebase from 'firebase';
-import {OnInit} from '@angular/core';
-import {Title } from '@angular/platform-browser';
-import{UserPage}from '../user/user';
 import {AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import moment from 'moment';
-import {File} from '@ionic-native/file';
 
 //to resolve the file of the local system
 declare var window:any;
@@ -381,6 +372,7 @@ loadData() {
    //to go to gallery view
    goToGallery(){
     document.getElementById("btnBrowse").style.display="block"
+    document.getElementById("selectFolder").style.display="none"
       this.currentFolder="Gallery/";
       document.getElementById("title").innerHTML="Gallery"
       document.getElementById("grid1").style.display = "block";

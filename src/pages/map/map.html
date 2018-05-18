@@ -6,8 +6,7 @@
 -->
 <!-- 
   HCI issues:-
-    Issue faced in automatically loading the circle from the data available in database but was unable to
-    call in IonviewidLoad method. Therefore a button (Load Boundary)  is used to call that loading circle method.
+    Issue faced in automatically loading the circle from the data available in database.
     
   Security issues:- 
       The current position of the user are stored within the cloud therefore more secured about user's position
@@ -18,13 +17,12 @@
         Map
       </ion-title>
       <ion-buttons end>
-          <button ion-button color="mycolor"(click)="updatecircle()">Load Boundary</button>
-    <button ion-button color="mycolor" (click)="addRadius()">set Radius</button>
+    <button ion-button color="primary" (click)="addRadius()">set Radius</button>
       </ion-buttons>
      
     </ion-navbar>
   </ion-header>
-   
+   <!--To display the map-->
   <ion-content>
     <div #map id="map"></div> 
   </ion-content>

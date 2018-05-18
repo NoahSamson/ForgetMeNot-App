@@ -1,4 +1,3 @@
-import { LoginPage } from './../../pages/login/login';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 
